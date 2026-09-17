@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - TASFUED LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="background-logo">
+  <div class="container">
+    <img src="tasued.jpg" alt="tasued" class="logo" onerror="this.style.display='none'">
+    
+    <h2>TASFUED LEARN PORTAL LOGIN</h2>
+
+    <input type="text" id="loginId" placeholder="Email or Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <p class="error" id="loginError"></p>
+
+    <div class="link">
+       Don't have an account? <a href="signup.html">Sign Up here</a>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const loginId = document.getElementById('loginId').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      const errorEl = document.getElementById('loginError');
+      errorEl.textContent = '';
+
+      if (!loginId || !password) {
+        errorEl.textContent = 'Please enter email/username and password';
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('portfolioUsers') || '[]');
+      const user = users.find(u => 
+        (u.email === loginId || u.username === loginId) && u.password === password
+      );
+
+      if (!user) {
+        errorEl.textContent = 'Invalid email/username or password';
+        return;
+      }
+
+      if (!user.verified) {
+        errorEl.textContent = 'Please verify your email first';
+        return;
+      }
+
+      // Save logged-in user
+      localStorage.setItem('currentUser', JSON.stringify(user));
+
+      // Redirect to dashboard
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+</body>
+</html>

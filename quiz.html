@@ -1,0 +1,2701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quiz | TASFUED Learn Portal</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f3f6f4;
+    color: #1f2923;
+}
+
+
+/* =====================================================
+   TOP NAVIGATION
+===================================================== */
+
+.quiz-topbar {
+    height: 72px;
+    background: #075b20;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 35px;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    box-shadow: 0 3px 20px rgba(0,0,0,.15);
+}
+
+.quiz-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.quiz-brand-logo {
+    width: 40px;
+    height: 40px;
+
+    background: white;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.quiz-brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.quiz-brand h2 {
+    font-size: 17px;
+}
+
+.quiz-brand small {
+    display: block;
+    font-size: 8px;
+    opacity: .7;
+    letter-spacing: 1.5px;
+}
+
+.quiz-exit {
+    border: 1px solid rgba(255,255,255,.3);
+    background: transparent;
+    color: white;
+
+    padding: 9px 17px;
+    border-radius: 7px;
+
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.quiz-exit:hover {
+    background: #e63946;
+    border-color: #e63946;
+}
+
+
+/* =====================================================
+   QUIZ WRAPPER
+===================================================== */
+
+.quiz-wrapper {
+    width: 94%;
+    max-width: 1250px;
+
+    margin: 30px auto 50px;
+
+    display: grid;
+    grid-template-columns: 1fr 300px;
+
+    gap: 22px;
+}
+
+
+/* =====================================================
+   MAIN QUIZ
+===================================================== */
+
+.quiz-main {
+    background: white;
+
+    border-radius: 15px;
+
+    border: 1px solid #e3e9e5;
+
+    box-shadow: 0 7px 25px rgba(0,0,0,.06);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   QUIZ HEADER
+===================================================== */
+
+.quiz-header {
+    padding: 24px 28px;
+
+    border-bottom: 1px solid #edf0ee;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quiz-title-area span {
+    color: #087f23;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.quiz-title-area h1 {
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+.quiz-title-area p {
+    font-size: 11px;
+    color: #8a938e;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+.timer-box {
+    min-width: 125px;
+
+    padding: 10px 14px;
+
+    background: #f2f8f3;
+
+    border: 1px solid #dbe9df;
+
+    border-radius: 9px;
+
+    text-align: center;
+}
+
+.timer-box span {
+    display: block;
+
+    color: #7c8881;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.timer {
+    color: #087f23;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    margin-top: 2px;
+}
+
+.timer.warning {
+    color: #e67e22;
+}
+
+.timer.danger {
+    color: #e63946;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.quiz-progress-area {
+    padding: 18px 28px 5px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 10px;
+    color: #7b8580;
+
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 7px;
+
+    background: #edf1ee;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+
+    height: 100%;
+
+    background: #087f23;
+
+    border-radius: 20px;
+
+    transition: width .3s ease;
+}
+
+
+/* =====================================================
+   QUESTION
+===================================================== */
+
+.question-area {
+    padding: 28px;
+}
+
+.question-category {
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    background: #eaf6ed;
+
+    color: #087f23;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+}
+
+.question-text {
+    font-size: 22px;
+
+    line-height: 1.45;
+
+    margin: 17px 0 25px;
+
+    color: #202a24;
+}
+
+
+/* =====================================================
+   ANSWERS
+===================================================== */
+
+.answers {
+    display: grid;
+    gap: 12px;
+}
+
+.answer-option {
+    width: 100%;
+
+    min-height: 60px;
+
+    padding: 12px 16px;
+
+    background: white;
+
+    border: 1px solid #dfe6e1;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    color: #39433e;
+}
+
+.answer-option:hover {
+    border-color: #087f23;
+
+    background: #f7fbf8;
+
+    transform: translateX(2px);
+}
+
+.answer-letter {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: #f0f3f1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+
+    color: #647069;
+}
+
+.answer-option.selected {
+    border: 2px solid #087f23;
+
+    background: #eef8f0;
+
+    color: #075b20;
+}
+
+.answer-option.selected .answer-letter {
+    background: #087f23;
+
+    color: white;
+}
+
+
+/* =====================================================
+   QUESTION ACTIONS
+===================================================== */
+
+.question-actions {
+    margin-top: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid #edf0ee;
+
+    padding-top: 20px;
+}
+
+.review-btn {
+    border: none;
+
+    background: transparent;
+
+    color: #7c8781;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.review-btn.marked {
+    color: #e67e22;
+}
+
+.navigation-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    border: none;
+
+    padding: 11px 18px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.previous-btn {
+    background: #edf1ee;
+    color: #4d5852;
+}
+
+.next-btn {
+    background: #087f23;
+    color: white;
+}
+
+.next-btn:hover {
+    background: #056719;
+}
+
+.previous-btn:hover {
+    background: #dfe5e1;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.quiz-sidebar {
+    background: white;
+
+    border: 1px solid #e3e9e5;
+
+    border-radius: 15px;
+
+    box-shadow: 0 7px 25px rgba(0,0,0,.06);
+
+    height: fit-content;
+
+    overflow: hidden;
+}
+
+.sidebar-heading {
+    padding: 20px;
+
+    border-bottom: 1px solid #edf0ee;
+}
+
+.sidebar-heading span {
+    color: #8b9690;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.sidebar-heading h3 {
+    font-size: 17px;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   STUDENT
+===================================================== */
+
+.student-card {
+    padding: 18px;
+
+    background: #f7faf8;
+
+    margin: 15px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.student-avatar {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: #087f23;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+.student-card strong {
+    font-size: 11px;
+
+    display: block;
+}
+
+.student-card small {
+    color: #89938e;
+
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   QUESTION PALETTE
+===================================================== */
+
+.palette {
+    padding: 5px 18px 20px;
+
+    display: grid;
+
+    grid-template-columns: repeat(5,1fr);
+
+    gap: 7px;
+}
+
+.palette button {
+    width: 38px;
+    height: 35px;
+
+    border: 1px solid #dfe6e1;
+
+    background: #f9fbfa;
+
+    color: #68736d;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+.palette button:hover {
+    border-color: #087f23;
+}
+
+.palette button.current {
+    background: #087f23;
+
+    color: white;
+
+    border-color: #087f23;
+}
+
+.palette button.answered {
+    background: #dff1e3;
+
+    color: #087f23;
+
+    border-color: #b9dcbc;
+}
+
+.palette button.review {
+    background: #fff0dd;
+
+    color: #c66b00;
+
+    border-color: #f0c995;
+}
+
+
+/* =====================================================
+   LEGEND
+===================================================== */
+
+.legend {
+    padding: 0 20px 20px;
+
+    display: grid;
+
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 9px;
+
+    color: #7d8782;
+}
+
+.legend-dot {
+    width: 11px;
+    height: 11px;
+
+    border-radius: 3px;
+
+    background: #f9fbfa;
+
+    border: 1px solid #dfe6e1;
+}
+
+.legend-dot.green {
+    background: #dff1e3;
+}
+
+.legend-dot.orange {
+    background: #fff0dd;
+}
+
+
+/* =====================================================
+   RESULT SCREEN
+===================================================== */
+
+.result-screen {
+    display: none;
+
+    text-align: center;
+
+    padding: 60px 30px;
+}
+
+.result-icon {
+    width: 85px;
+    height: 85px;
+
+    border-radius: 50%;
+
+    background: #e5f5e8;
+
+    color: #087f23;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: auto;
+
+    font-size: 40px;
+}
+
+.result-screen h2 {
+    font-size: 30px;
+
+    margin-top: 20px;
+}
+
+.result-screen p {
+    color: #7e8983;
+
+    font-size: 13px;
+
+    margin-top: 8px;
+}
+
+.score-number {
+    font-size: 55px;
+
+    font-weight: 900;
+
+    color: #087f23;
+
+    margin: 20px 0 5px;
+}
+
+.result-details {
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    max-width: 600px;
+
+    margin: 25px auto;
+
+    border: 1px solid #e1e8e3;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.result-detail {
+    padding: 18px;
+
+    border-right: 1px solid #e1e8e3;
+}
+
+.result-detail:last-child {
+    border-right: none;
+}
+
+.result-detail span {
+    display: block;
+
+    font-size: 8px;
+
+    color: #89948e;
+
+    font-weight: 700;
+}
+
+.result-detail strong {
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: 20px;
+}
+
+.result-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.result-btn {
+    padding: 12px 20px;
+
+    border-radius: 7px;
+
+    border: none;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.retake {
+    background: #087f23;
+    color: white;
+}
+
+.home {
+    background: #edf1ee;
+    color: #39443e;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.quiz-footer {
+    text-align: center;
+
+    color: #929b96;
+
+    font-size: 9px;
+
+    padding: 0 20px 30px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:900px) {
+
+    .quiz-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .quiz-sidebar {
+        order: -1;
+    }
+
+    .palette {
+        grid-template-columns: repeat(10,1fr);
+    }
+
+    .palette button {
+        width: 100%;
+    }
+}
+
+
+@media(max-width:600px) {
+
+    .quiz-topbar {
+        padding: 0 15px;
+    }
+
+    .quiz-brand h2 {
+        font-size: 14px;
+    }
+
+    .quiz-brand small {
+        display: none;
+    }
+
+    .quiz-wrapper {
+        width: 96%;
+        margin-top: 15px;
+    }
+
+    .quiz-header {
+        padding: 18px;
+    }
+
+    .quiz-title-area h1 {
+        font-size: 19px;
+    }
+
+    .timer-box {
+        min-width: 90px;
+    }
+
+    .question-area {
+        padding: 20px;
+    }
+
+    .question-text {
+        font-size: 18px;
+    }
+
+    .answer-option {
+        font-size: 12px;
+    }
+
+    .question-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .navigation-buttons {
+        justify-content: space-between;
+    }
+
+    .result-details {
+        grid-template-columns: 1fr;
+    }
+
+    .result-detail {
+        border-right: none;
+        border-bottom: 1px solid #e1e8e3;
+    }
+
+    .result-detail:last-child {
+        border-bottom: none;
+    }
+
+    .result-buttons {
+        flex-direction: column;
+    }
+
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+@media print {
+    .quiz-topbar,
+    .quiz-sidebar,
+    .quiz-footer {
+        display: none;
+    }
+
+    .quiz-wrapper {
+        display: block;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+
+<header class="quiz-topbar">
+
+    <div class="quiz-brand">
+
+        <div class="quiz-brand-logo">
+            <img src="tasued.jpg" alt="TASFUED">
+        </div>
+
+        <div>
+            <h2>TASFUED LEARN PORTAL</h2>
+            <small>ONLINE CBT EXAMINATION</small>
+        </div>
+
+    </div>
+
+    <button class="quiz-exit" onclick="exitQuiz()">
+        Exit Quiz
+    </button>
+
+</header>
+
+
+<!-- =====================================================
+     QUIZ WRAPPER
+===================================================== -->
+
+<div class="quiz-wrapper">
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="quiz-main">
+
+
+        <!-- QUIZ HEADER -->
+
+        <div class="quiz-header">
+
+            <div class="quiz-title-area">
+
+                <span>PROGRAMMING LANGUAGES</span>
+
+                <h1>Computer Based Test</h1>
+
+                <p>
+                    Answer all questions carefully before submitting.
+                </p>
+
+            </div>
+
+
+            <div class="timer-box">
+
+                <span>TIME REMAINING</span>
+
+                <div class="timer" id="timer">
+                    20:00
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div class="quiz-progress-area">
+
+            <div class="progress-info">
+
+                <span id="progressText">
+                    Question 1 of 25
+                </span>
+
+                <span id="progressPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUESTION AREA -->
+
+        <section class="question-area" id="questionArea">
+
+            <span
+                class="question-category"
+                id="questionCategory">
+                HTML
+            </span>
+
+            <h2
+                class="question-text"
+                id="questionText">
+                Loading question...
+            </h2>
+
+            <div
+                class="answers"
+                id="answers">
+            </div>
+
+
+            <div class="question-actions">
+
+                <button
+                    class="review-btn"
+                    id="reviewButton"
+                    onclick="toggleReview()">
+
+                    🚩 Mark for Review
+
+                </button>
+
+
+                <div class="navigation-buttons">
+
+                    <button
+                        class="nav-btn previous-btn"
+                        onclick="previousQuestion()">
+
+                        ← Previous
+
+                    </button>
+
+
+                    <button
+                        class="nav-btn next-btn"
+                        id="nextButton"
+                        onclick="nextQuestion()">
+
+                        Next →
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULT -->
+
+        <section
+            class="result-screen"
+            id="resultScreen">
+
+            <div class="result-icon">
+                ✓
+            </div>
+
+            <h2>
+                Quiz Completed
+            </h2>
+
+            <p>
+                Your examination has been submitted successfully.
+            </p>
+
+
+            <div
+                class="score-number"
+                id="scoreNumber">
+                0%
+            </div>
+
+
+            <div class="result-details">
+
+                <div class="result-detail">
+
+                    <span>
+                        SCORE
+                    </span>
+
+                    <strong id="correctResult">
+                        0/25
+                    </strong>
+
+                </div>
+
+
+                <div class="result-detail">
+
+                    <span>
+                        WRONG
+                    </span>
+
+                    <strong id="wrongResult">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="result-detail">
+
+                    <span>
+                        GRADE
+                    </span>
+
+                    <strong id="gradeResult">
+                        F
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-buttons">
+
+                <button
+                    class="result-btn retake"
+                    onclick="restartQuiz()">
+
+                    Retake Quiz
+
+                </button>
+
+                <a
+                    href="dashboard.html"
+                    class="result-btn home">
+
+                    Dashboard
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="quiz-sidebar">
+
+        <div class="sidebar-heading">
+
+            <span>EXAMINATION</span>
+
+            <h3>Question Navigator</h3>
+
+        </div>
+
+
+        <!-- STUDENT -->
+
+        <div class="student-card">
+
+            <div class="student-avatar">
+                AB
+            </div>
+
+            <div>
+
+                <strong>
+                    Abdulsalam Basit
+                </strong>
+
+                <small>
+                    Computer Science
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- PALETTE -->
+
+        <div
+            class="palette"
+            id="palette">
+        </div>
+
+
+        <!-- LEGEND -->
+
+        <div class="legend">
+
+            <div class="legend-item">
+
+                <span class="legend-dot"></span>
+
+                Not Answered
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span class="legend-dot green"></span>
+
+                Answered
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span class="legend-dot orange"></span>
+
+                Review
+
+            </div>
+
+        </div>
+
+    </aside>
+
+</div>
+
+
+<footer class="quiz-footer">
+
+    TASFUED Learn Portal © 2026
+    <br>
+    Computer Science Department
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   LOGIN PROTECTION
+===================================================== */
+
+if (!localStorage.getItem("currentUser")) {
+
+    window.location.href = "login.html";
+
+}
+
+
+/* =====================================================
+   QUESTION BANK
+===================================================== */
+
+const questionBank = [
+
+/* ================= HTML ================= */
+
+{
+    category:"HTML",
+    question:"What does HTML stand for?",
+    options:[
+        "Hyper Text Markup Language",
+        "High Text Machine Language",
+        "Hyperlink Text Management Language",
+        "Home Tool Markup Language"
+    ],
+    answer:0
+},
+
+{
+    category:"HTML",
+    question:"Which HTML element is used for the largest heading?",
+    options:["<h6>","<heading>","<h1>","<head>"],
+    answer:2
+},
+
+{
+    category:"HTML",
+    question:"Which element creates a hyperlink?",
+    options:["<link>","<a>","<href>","<url>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which attribute specifies an image source?",
+    options:["href","src","link","source"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which tag creates an unordered list?",
+    options:["<ol>","<list>","<ul>","<li>"],
+    answer:2
+},
+
+{
+    category:"HTML",
+    question:"Which tag creates a paragraph?",
+    options:["<paragraph>","<p>","<para>","<text>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which HTML element creates a line break?",
+    options:["<break>","<lb>","<br>","<newline>"],
+    answer:2
+},
+
+{
+    category:"HTML",
+    question:"Which attribute provides alternative text for an image?",
+    options:["title","alt","description","text"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which tag is used to create a table?",
+    options:["<table>","<tab>","<grid>","<tbl>"],
+    answer:0
+},
+
+{
+    category:"HTML",
+    question:"Which element defines a table row?",
+    options:["<td>","<tr>","<row>","<th>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which element defines a table cell?",
+    options:["<cell>","<tc>","<td>","<data>"],
+    answer:2
+},
+
+{
+    category:"HTML",
+    question:"Which HTML element is used to create a form?",
+    options:["<input>","<form>","<fieldset>","<data>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which input type hides entered characters?",
+    options:["hidden","password","secret","private"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which element is used to embed JavaScript?",
+    options:["<javascript>","<js>","<script>","<code>"],
+    answer:2
+},
+
+{
+    category:"HTML",
+    question:"Which element is used to embed CSS directly in HTML?",
+    options:["<css>","<style>","<design>","<stylesheet>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which HTML5 element represents navigation links?",
+    options:["<navigate>","<navigation>","<nav>","<links>"],
+    answer:2
+},
+
+{
+    category:"HTML",
+    question:"Which element represents the main content of a document?",
+    options:["<content>","<main>","<body>","<section>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which tag creates an ordered list?",
+    options:["<ul>","<ol>","<list>","<order>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which tag represents a list item?",
+    options:["<item>","<li>","<list>","<element>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which declaration specifies HTML5?",
+    options:[
+        "<!DOCTYPE html>",
+        "<HTML5>",
+        "<DOCTYPE HTML5>",
+        "<html version='5'>"
+    ],
+    answer:0
+},
+
+{
+    category:"HTML",
+    question:"Which element contains metadata about an HTML document?",
+    options:["<meta>","<head>","<data>","<info>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which element defines the title shown in the browser tab?",
+    options:["<head>","<title>","<caption>","<name>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which element is used for emphasized text?",
+    options:["<italic>","<em>","<emphasis>","<i-text>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which element is normally used for strong importance?",
+    options:["<bold>","<strong>","<important>","<bolder>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which HTML element embeds video?",
+    options:["<media>","<movie>","<video>","<film>"],
+    answer:2
+},
+
+{
+    category:"HTML",
+    question:"Which HTML element embeds audio?",
+    options:["<sound>","<music>","<audio>","<voice>"],
+    answer:2
+},
+
+{
+    category:"HTML",
+    question:"Which attribute opens a link in a new browsing context?",
+    options:["target='_blank'","new='tab'","open='new'","window='new'"],
+    answer:0
+},
+
+{
+    category:"HTML",
+    question:"Which element is used for a horizontal thematic break?",
+    options:["<line>","<hr>","<break>","<horizontal>"],
+    answer:1
+},
+
+{
+    category:"HTML",
+    question:"Which element defines a section of a document?",
+    options:["<section>","<part>","<division>","<area>"],
+    answer:0
+},
+
+{
+    category:"HTML",
+    question:"Which attribute gives an element a unique identifier?",
+    options:["class","id","name","key"],
+    answer:1
+},
+
+
+/* ================= CSS ================= */
+
+{
+    category:"CSS",
+    question:"What does CSS stand for?",
+    options:[
+        "Cascading Style Sheets",
+        "Computer Style System",
+        "Creative Style Sheets",
+        "Colorful Style Syntax"
+    ],
+    answer:0
+},
+
+{
+    category:"CSS",
+    question:"Which property changes text color?",
+    options:["font-color","text-color","color","foreground"],
+    answer:2
+},
+
+{
+    category:"CSS",
+    question:"Which property changes the background color?",
+    options:["background-color","bgcolor","color-background","back-color"],
+    answer:0
+},
+
+{
+    category:"CSS",
+    question:"Which property changes font size?",
+    options:["font-size","text-size","size","font-height"],
+    answer:0
+},
+
+{
+    category:"CSS",
+    question:"Which selector targets an element with an ID?",
+    options:[".","#","*","@"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which selector targets a class?",
+    options:["#",".","@",":"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which property controls space inside an element?",
+    options:["margin","padding","spacing","inside-space"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which property controls space outside an element?",
+    options:["padding","margin","border-space","outside"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which property makes an element flexible?",
+    options:["display:flex","flexbox:true","layout:flex","position:flex"],
+    answer:0
+},
+
+{
+    category:"CSS",
+    question:"Which property rounds element corners?",
+    options:["corner-radius","border-radius","round-corner","radius"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which property controls element transparency?",
+    options:["visibility","opacity","transparent","alpha"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which value hides an element while removing it from layout?",
+    options:["visibility:hidden","display:none","opacity:0","hidden:true"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which property controls stacking order?",
+    options:["stack","z-index","layer","order-index"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which property changes the font family?",
+    options:["font-family","font-style","typeface","font-type"],
+    answer:0
+},
+
+{
+    category:"CSS",
+    question:"Which CSS property aligns text?",
+    options:["text-align","align-text","font-align","text-position"],
+    answer:0
+},
+
+{
+    category:"CSS",
+    question:"Which unit is relative to the root font size?",
+    options:["em","rem","px","vh"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which CSS property adds a shadow around an element?",
+    options:["shadow","box-shadow","element-shadow","border-shadow"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which property controls an element's width?",
+    options:["size","width","element-width","length"],
+    answer:1
+},
+
+{
+    category:"CSS",
+    question:"Which property controls an element's height?",
+    options:["height","length","element-height","size-height"],
+    answer:0
+},
+
+{
+    category:"CSS",
+    question:"Which property changes the mouse pointer?",
+    options:["mouse","pointer","cursor","mouse-style"],
+    answer:2
+},
+
+
+/* ================= C++ ================= */
+
+{
+    category:"C++",
+    question:"Who developed C++?",
+    options:["Dennis Ritchie","Bjarne Stroustrup","James Gosling","Guido van Rossum"],
+    answer:1
+},
+
+{
+    category:"C++",
+    question:"Which symbol ends most C++ statements?",
+    options:[".",";",":",","],
+    answer:1
+},
+
+{
+    category:"C++",
+    question:"Which function is the entry point of a C++ program?",
+    options:["start()","main()","run()","begin()"],
+    answer:1
+},
+
+{
+    category:"C++",
+    question:"Which keyword declares a constant?",
+    options:["constant","const","fixed","final"],
+    answer:1
+},
+
+{
+    category:"C++",
+    question:"Which operator is used for logical AND?",
+    options:["&","&&","||","AND"],
+    answer:1
+},
+
+{
+    category:"C++",
+    question:"Which header is commonly used for cout and cin?",
+    options:["<stdio.h>","<iostream>","<input>","<stream>"],
+    answer:1
+},
+
+{
+    category:"C++",
+    question:"Which object is used to output text?",
+    options:["cin","cout","print","output"],
+    answer:1
+},
+
+{
+    category:"C++",
+    question:"Which object is used to receive input?",
+    options:["input","cin","read","scan"],
+    answer:1
+},
+
+{
+    category:"C++",
+    question:"Which keyword creates a class?",
+    options:["object","class","structural","define"],
+    answer:1
+},
+
+{
+    category:"C++",
+    question:"Which operator accesses a member through an object?",
+    options:["->",".","::","=>"],
+    answer:1
+},
+
+
+/* ================= JAVA ================= */
+
+{
+    category:"JAVA",
+    question:"Which company originally developed Java?",
+    options:["Microsoft","Sun Microsystems","IBM","Apple"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword defines a class in Java?",
+    options:["class","Class","define","object"],
+    answer:0
+},
+
+{
+    category:"JAVA",
+    question:"Which method starts a Java application?",
+    options:["start()","main()","run()","execute()"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword creates an object?",
+    options:["create","object","new","make"],
+    answer:2
+},
+
+{
+    category:"JAVA",
+    question:"Which type stores true or false?",
+    options:["bool","boolean","logical","bit"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword is used for inheritance?",
+    options:["inherits","extends","inherit","superclass"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword prevents a class from being inherited?",
+    options:["static","final","private","sealed"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which symbol is used to end a Java statement?",
+    options:[".",";",":",","],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Java source code is compiled into what?",
+    options:["Machine code","Bytecode","HTML","Assembly only"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword refers to the current object?",
+    options:["self","this","current","object"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which access modifier provides the widest class-member access?",
+    options:["private","protected","public","internal"],
+    answer:2
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword handles exceptions?",
+    options:["try","check","error","catcher"],
+    answer:0
+},
+
+{
+    category:"JAVA",
+    question:"Which block handles an exception?",
+    options:["handle","catch","except","error"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword explicitly throws an exception?",
+    options:["throw","throws","error","exception"],
+    answer:0
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword declares a method that belongs to the class?",
+    options:["class","static","shared","global"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which collection does not allow duplicate elements?",
+    options:["List","Set","Array","Queue"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which interface represents a sequence of elements?",
+    options:["List","Single","SequenceOnly","ArrayOnly"],
+    answer:0
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword is used to implement an interface?",
+    options:["inherits","implements","extends","interface"],
+    answer:1
+},
+
+{
+    category:"JAVA",
+    question:"Which keyword is used to define an interface?",
+    options:["interface","implements","contract","abstract-interface"],
+    answer:0
+},
+
+{
+    category:"JAVA",
+    question:"What is Java's standard package for basic classes such as String?",
+    options:["java.lang","java.base","java.core","java.basic"],
+    answer:0
+},
+
+
+/* ================= JAVASCRIPT ================= */
+
+{
+    category:"JAVASCRIPT",
+    question:"Which keyword declares a block-scoped variable that can be reassigned?",
+    options:["var","let","constant","define"],
+    answer:1
+},
+
+{
+    category:"JAVASCRIPT",
+    question:"Which keyword declares a constant?",
+    options:["constant","const","fixed","final"],
+    answer:1
+},
+
+{
+    category:"JAVASCRIPT",
+    question:"Which method writes a message to the browser console?",
+    options:["console.write()","console.log()","print.console()","log.console()"],
+    answer:1
+},
+
+{
+    category:"JAVASCRIPT",
+    question:"Which symbol represents strict equality?",
+    options:["=","==","===","!="],
+    answer:2
+},
+
+{
+    category:"JAVASCRIPT",
+    question:"Which method adds an item to the end of an array?",
+    options:["add()","push()","append()","insert()"],
+    answer:1
+},
+
+{
+    category:"JAVASCRIPT",
+    question:"Which method removes the last array item?",
+    options:["remove()","delete()","pop()","last()"],
+    answer:2
+},
+
+{
+    category:"JAVASCRIPT",
+    question:"Which object represents the HTML document?",
+    options:["HTML","window.document","page","browser"],
+    answer:1
+},
+
+{
+    category:"JAVASCRIPT",
+    question:"Which method selects an element by its ID?",
+    options:[
+        "getElementById()",
+        "selectById()",
+        "findId()",
+        "queryId()"
+    ],
+    answer:0
+},
+
+{
+    category:"JAVASCRIPT",
+    question:"Which keyword is used to define a function?",
+    options:["function","def","method","func"],
+    answer:0
+},
+
+{
+    category:"JAVASCRIPT",
+    question:"Which event occurs when a user clicks an element?",
+    options:["onpress","onclick","onselect","clicking"],
+    answer:1
+},
+
+
+/* ================= C# ================= */
+
+{
+    category:"C#",
+    question:"Who developed C#?",
+    options:["Microsoft","Google","Apple","Oracle"],
+    answer:0
+},
+
+{
+    category:"C#",
+    question:"Which keyword declares a class in C#?",
+    options:["class","Class","define","type"],
+    answer:0
+},
+
+{
+    category:"C#",
+    question:"Which method is commonly the entry point of a C# console program?",
+    options:["Start()","Main()","Run()","Begin()"],
+    answer:1
+},
+
+{
+    category:"C#",
+    question:"Which keyword creates an object?",
+    options:["create","new","make","object"],
+    answer:1
+},
+
+{
+    category:"C#",
+    question:"Which type stores true or false?",
+    options:["bool","boolean","bit","logical"],
+    answer:0
+},
+
+{
+    category:"C#",
+    question:"Which keyword is used for inheritance?",
+    options:["inherits","extends","super","base"],
+    answer:1
+},
+
+{
+    category:"C#",
+    question:"Which keyword defines a constant?",
+    options:["const","constant","fixed","final"],
+    answer:0
+},
+
+{
+    category:"C#",
+    question:"Which namespace contains basic console functionality?",
+    options:["System","Console","Microsoft","IO"],
+    answer:0
+},
+
+{
+    category:"C#",
+    question:"Which statement outputs text to the console?",
+    options:[
+        "Console.WriteLine()",
+        "print()",
+        "console.log()",
+        "System.Print()"
+    ],
+    answer:0
+},
+
+{
+    category:"C#",
+    question:"Which symbol terminates most C# statements?",
+    options:[".",";",":",","],
+    answer:1
+}
+
+];
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+const QUESTIONS_PER_QUIZ = 25;
+
+const QUIZ_TIME = 8 * 60;
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let quizQuestions = [];
+
+let currentQuestion = 0;
+
+let selectedAnswers = [];
+
+let markedQuestions = [];
+
+let timeLeft = QUIZ_TIME;
+
+let timerInterval;
+
+
+/* =====================================================
+   RANDOMIZE ARRAY
+===================================================== */
+
+function shuffle(array) {
+
+    let copy = [...array];
+
+    for (
+        let i = copy.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(Math.random() * (i + 1));
+
+        [
+            copy[i],
+            copy[j]
+        ] = [
+            copy[j],
+            copy[i]
+        ];
+
+    }
+
+    return copy;
+}
+
+
+/* =====================================================
+   START QUIZ
+===================================================== */
+
+function startQuiz() {
+
+    quizQuestions =
+        shuffle(questionBank)
+        .slice(0, QUESTIONS_PER_QUIZ);
+
+    currentQuestion = 0;
+
+    selectedAnswers =
+        new Array(QUESTIONS_PER_QUIZ).fill(null);
+
+    markedQuestions =
+        new Array(QUESTIONS_PER_QUIZ).fill(false);
+
+    timeLeft = QUIZ_TIME;
+
+    document.getElementById("questionArea")
+        .style.display = "block";
+
+    document.getElementById("resultScreen")
+        .style.display = "none";
+
+    createPalette();
+
+    loadQuestion();
+
+    startTimer();
+
+}
+
+
+/* =====================================================
+   LOAD QUESTION
+===================================================== */
+
+function loadQuestion() {
+
+    const question =
+        quizQuestions[currentQuestion];
+
+
+    document.getElementById("questionCategory")
+        .textContent =
+        question.category;
+
+
+    document.getElementById("questionText")
+        .textContent =
+        question.question;
+
+
+    const answers =
+        document.getElementById("answers");
+
+    answers.innerHTML = "";
+
+
+    const letters = [
+        "A",
+        "B",
+        "C",
+        "D"
+    ];
+
+
+    question.options.forEach(
+        (option,index) => {
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "answer-option";
+
+
+            if (
+                selectedAnswers[currentQuestion]
+                === index
+            ) {
+
+                button.classList.add("selected");
+
+            }
+
+
+            button.innerHTML = `
+
+                <span class="answer-letter">
+                    ${letters[index]}
+                </span>
+
+                <span>
+                    ${option}
+                </span>
+
+            `;
+
+
+            button.onclick = () => {
+
+                selectAnswer(index);
+
+            };
+
+
+            answers.appendChild(button);
+
+        }
+    );
+
+
+    updateProgress();
+
+    updatePalette();
+
+    updateReviewButton();
+
+
+    document.getElementById("nextButton")
+        .textContent =
+        currentQuestion ===
+        QUESTIONS_PER_QUIZ - 1
+
+        ? "Submit Quiz ✓"
+
+        : "Next →";
+
+}
+
+
+/* =====================================================
+   SELECT ANSWER
+===================================================== */
+
+function selectAnswer(index) {
+
+    selectedAnswers[currentQuestion] =
+        index;
+
+    loadQuestion();
+
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+function nextQuestion() {
+
+    if (
+        currentQuestion ===
+        QUESTIONS_PER_QUIZ - 1
+    ) {
+
+        submitQuiz();
+
+        return;
+
+    }
+
+
+    currentQuestion++;
+
+    loadQuestion();
+
+}
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+function previousQuestion() {
+
+    if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        loadQuestion();
+
+    }
+
+}
+
+
+/* =====================================================
+   REVIEW
+===================================================== */
+
+function toggleReview() {
+
+    markedQuestions[currentQuestion] =
+        !markedQuestions[currentQuestion];
+
+    updateReviewButton();
+
+    updatePalette();
+
+}
+
+
+function updateReviewButton() {
+
+    const button =
+        document.getElementById(
+            "reviewButton"
+        );
+
+
+    if (
+        markedQuestions[currentQuestion]
+    ) {
+
+        button.classList.add("marked");
+
+        button.textContent =
+            "🚩 Marked for Review";
+
+    } else {
+
+        button.classList.remove("marked");
+
+        button.textContent =
+            "🚩 Mark for Review";
+
+    }
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+function updateProgress() {
+
+    const answered =
+        selectedAnswers.filter(
+            answer => answer !== null
+        ).length;
+
+
+    const percentage =
+        Math.round(
+            (answered / QUESTIONS_PER_QUIZ) * 100
+        );
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        `Question ${currentQuestion + 1} of ${QUESTIONS_PER_QUIZ}`;
+
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        `${percentage}%`;
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        `${percentage}%`;
+
+}
+
+
+/* =====================================================
+   PALETTE
+===================================================== */
+
+function createPalette() {
+
+    const palette =
+        document.getElementById("palette");
+
+    palette.innerHTML = "";
+
+
+    for (
+        let i = 0;
+        i < QUESTIONS_PER_QUIZ;
+        i++
+    ) {
+
+        const button =
+            document.createElement("button");
+
+        button.textContent =
+            i + 1;
+
+
+        button.onclick = () => {
+
+            currentQuestion = i;
+
+            loadQuestion();
+
+        };
+
+
+        palette.appendChild(button);
+
+    }
+
+}
+
+
+function updatePalette() {
+
+    const buttons =
+        document.querySelectorAll(
+            "#palette button"
+        );
+
+
+    buttons.forEach(
+        (button,index) => {
+
+            button.className = "";
+
+
+            if (
+                index === currentQuestion
+            ) {
+
+                button.classList.add(
+                    "current"
+                );
+
+            }
+
+
+            if (
+                selectedAnswers[index]
+                !== null
+            ) {
+
+                button.classList.add(
+                    "answered"
+                );
+
+            }
+
+
+            if (
+                markedQuestions[index]
+            ) {
+
+                button.classList.add(
+                    "review"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(() => {
+
+            timeLeft--;
+
+
+            updateTimer();
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timerInterval);
+
+                submitQuiz(true);
+
+            }
+
+        },1000);
+
+}
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+    const seconds =
+        timeLeft % 60;
+
+
+    const timer =
+        document.getElementById("timer");
+
+
+    timer.textContent =
+        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+
+    timer.classList.remove(
+        "warning",
+        "danger"
+    );
+
+
+    if (timeLeft <= 300) {
+
+        timer.classList.add("warning");
+
+    }
+
+
+    if (timeLeft <= 60) {
+
+        timer.classList.add("danger");
+
+    }
+
+}
+
+
+/* =====================================================
+   SUBMIT QUIZ
+===================================================== */
+
+function submitQuiz(timeExpired = false) {
+
+    clearInterval(timerInterval);
+
+
+    let correct = 0;
+
+
+    quizQuestions.forEach(
+        (question,index) => {
+
+            if (
+                selectedAnswers[index]
+                === question.answer
+            ) {
+
+                correct++;
+
+            }
+
+        }
+    );
+
+
+    const wrong =
+        QUESTIONS_PER_QUIZ - correct;
+
+
+    const percentage =
+        Math.round(
+            (correct / QUESTIONS_PER_QUIZ) * 100
+        );
+
+
+    let grade;
+
+
+    if (percentage >= 70) {
+
+        grade = "A";
+
+    } else if (percentage >= 60) {
+
+        grade = "B";
+
+    } else if (percentage >= 50) {
+
+        grade = "C";
+
+    } else if (percentage >= 45) {
+
+        grade = "D";
+
+    } else if (percentage >= 40) {
+
+        grade = "E";
+
+    } else {
+
+        grade = "F";
+
+    }
+
+
+    document.getElementById(
+        "questionArea"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "resultScreen"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "scoreNumber"
+    ).textContent =
+        percentage + "%";
+
+
+    document.getElementById(
+        "correctResult"
+    ).textContent =
+        `${correct}/${QUESTIONS_PER_QUIZ}`;
+
+
+    document.getElementById(
+        "wrongResult"
+    ).textContent =
+        wrong;
+
+
+    document.getElementById(
+        "gradeResult"
+    ).textContent =
+        grade;
+
+
+    if (timeExpired) {
+
+        document.querySelector(
+            ".result-screen p"
+        ).textContent =
+            "Time expired. Your answers have been submitted automatically.";
+
+    } else {
+
+        document.querySelector(
+            ".result-screen p"
+        ).textContent =
+            "Your examination has been submitted successfully.";
+
+    }
+
+}
+
+
+/* =====================================================
+   RETAKE
+===================================================== */
+
+function restartQuiz() {
+
+    startQuiz();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   EXIT
+===================================================== */
+
+function exitQuiz() {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to exit the quiz? Your current progress will be lost."
+        );
+
+
+    if (confirmed) {
+
+        window.location.href =
+            "dashboard.html";
+
+    }
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+startQuiz();
+
+</script>
+
+</body>
+</html>

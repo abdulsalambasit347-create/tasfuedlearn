@@ -1,0 +1,2994 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Programming Academy - Course Notes</title>
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #202938;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.topbar {
+    background: #073b4c;
+    color: white;
+    padding: 18px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* =========================================================
+   BACK TO DASHBOARD
+========================================================= */
+
+.dashboard-return {
+    display: inline-block;
+    text-decoration: none;
+    background: #06d6a0;
+    color: #063b36;
+    padding: 10px 18px;
+    border-radius: 7px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.dashboard-return:hover {
+    background: #04b98a;
+    transform: translateY(-2px);
+}
+
+.brand-name {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.brand-name span {
+    color: #06d6a0;
+}
+
+.search-box {
+    width: 360px;
+    max-width: 100%;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 11px 15px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 15px;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero-area {
+    background: linear-gradient(135deg, #073b4c, #118ab2);
+    color: white;
+    padding: 60px 6%;
+}
+
+.hero-area h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hero-area p {
+    max-width: 750px;
+    font-size: 18px;
+    opacity: .95;
+}
+
+/* =========================================================
+   COURSE SELECTOR
+========================================================= */
+
+.course-selector {
+    background: white;
+    padding: 20px 6%;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 70px;
+    z-index: 900;
+}
+
+.course-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.course-buttons button {
+    border: none;
+    background: #e9eef3;
+    color: #17324d;
+    padding: 11px 16px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.course-buttons button:hover,
+.course-buttons button.active {
+    background: #06d6a0;
+    color: #063b36;
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.main-layout {
+    width: 90%;
+    max-width: 1400px;
+    margin: 35px auto;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.topic-sidebar {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    height: fit-content;
+    position: sticky;
+    top: 150px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.06);
+}
+
+.topic-sidebar h3 {
+    margin-bottom: 15px;
+    color: #073b4c;
+}
+
+.topic-list {
+    list-style: none;
+}
+
+.topic-list li {
+    margin-bottom: 7px;
+}
+
+.topic-list button {
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #40566d;
+}
+
+.topic-list button:hover,
+.topic-list button.active {
+    background: #e7faf5;
+    color: #007f68;
+    font-weight: bold;
+}
+
+/* =========================================================
+   NOTE AREA
+========================================================= */
+
+.note-area {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    min-height: 650px;
+}
+
+.note-area h2 {
+    color: #073b4c;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.note-area h3 {
+    color: #118ab2;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.note-area h4 {
+    margin-top: 20px;
+    color: #073b4c;
+}
+
+.note-area p {
+    margin-bottom: 15px;
+}
+
+.note-area ul,
+.note-area ol {
+    margin: 10px 0 20px 25px;
+}
+
+.note-area li {
+    margin-bottom: 7px;
+}
+
+/* =========================================================
+   INFO BOXES
+========================================================= */
+
+.info-box {
+    background: #eef9ff;
+    border-left: 5px solid #118ab2;
+    padding: 18px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.warning-box {
+    background: #fff8e6;
+    border-left: 5px solid #f4a261;
+    padding: 18px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.success-box {
+    background: #edfff8;
+    border-left: 5px solid #06d6a0;
+    padding: 18px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+/* =========================================================
+   CODE
+========================================================= */
+
+pre {
+    background: #17212b;
+    color: #e9f1f7;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 15px 0 25px;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+}
+
+code {
+    font-family: Consolas, monospace;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.note-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.note-table th,
+.note-table td {
+    border: 1px solid #dce3e9;
+    padding: 12px;
+    text-align: left;
+}
+
+.note-table th {
+    background: #073b4c;
+    color: white;
+}
+
+.note-table tr:nth-child(even) {
+    background: #f7fafc;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.note-navigation {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.note-navigation button {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.previous-btn {
+    background: #e9eef3;
+}
+
+.next-btn {
+    background: #06d6a0;
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-wrapper {
+    margin-bottom: 25px;
+}
+
+.progress-background {
+    height: 9px;
+    background: #e4e9ee;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-value {
+    height: 100%;
+    width: 0%;
+    background: #06d6a0;
+    transition: .3s;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    margin-top: 50px;
+    background: #073b4c;
+    color: white;
+    padding: 40px 6%;
+    text-align: center;
+}
+
+footer p {
+    opacity: .85;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 900px) {
+
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .topic-sidebar {
+        position: static;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .course-selector {
+        position: static;
+    }
+}
+
+@media(max-width: 600px) {
+
+    .hero-area h1 {
+        font-size: 30px;
+    }
+
+    .note-area {
+        padding: 22px;
+    }
+
+    .note-area h2 {
+        font-size: 25px;
+    }
+
+    pre {
+        font-size: 12px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ======================================================
+     HEADER
+====================================================== -->
+
+<header class="topbar">
+
+    <div class="brand-name">
+        TASFUEDLearn<span>Academy</span>
+    </div>
+
+    <a href="dashboard.html" class="dashboard-return">
+        ← Dashboard
+    </a>
+
+</header>
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+
+<section class="hero-area">
+
+    <h1>MySKILLS Course Notes</h1>
+
+    <p>
+        A professional learning resource covering programming
+        fundamentals, web development, databases and modern
+        programming languages.
+    </p>
+
+</section>
+
+
+<!-- ======================================================
+     COURSE SELECTOR
+====================================================== -->
+
+<section class="course-selector">
+
+    <div class="course-buttons">
+
+        <button class="active" onclick="selectCourse('intro', this)">
+            Introduction
+        </button>
+
+        <button onclick="selectCourse('html', this)">
+            HTML
+        </button>
+
+        <button onclick="selectCourse('css', this)">
+            CSS
+        </button>
+
+        <button onclick="selectCourse('javascript', this)">
+            JavaScript
+        </button>
+
+        <button onclick="selectCourse('php', this)">
+            PHP
+        </button>
+
+        <button onclick="selectCourse('cpp', this)">
+            C++
+        </button>
+
+        <button onclick="selectCourse('mysql', this)">
+            MySQL
+        </button>
+
+        <button onclick="selectCourse('python', this)">
+            Python
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
+<main class="main-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="topic-sidebar">
+
+        <h3>Course Topics</h3>
+
+        <div class="progress-wrapper">
+
+            <small>
+                Progress:
+                <span id="progressText">0%</span>
+            </small>
+
+            <div class="progress-background">
+                <div
+                    class="progress-value"
+                    id="progressBar">
+                </div>
+            </div>
+
+        </div>
+
+        <ul class="topic-list" id="topicList"></ul>
+
+    </aside>
+
+
+    <!-- NOTES -->
+
+    <article class="note-area" id="noteArea">
+
+    </article>
+
+</main>
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+    <h3>Programming Academy</h3>
+
+    <p>
+        Professional programming notes for students and developers.
+    </p>
+
+    <p>
+        Learn • Practice • Build • Improve @TASFUEDLearn
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   COURSE DATABASE
+========================================================= */
+
+const courses = {
+
+intro: {
+
+title: "Introduction to Programming Languages",
+
+topics: [
+
+{
+title: "What is Programming?",
+content: `
+
+<h3>Introduction</h3>
+
+<p>
+Programming is the process of creating instructions that tell
+a computer how to perform a particular task. These instructions
+are written using programming languages.
+</p>
+
+<h3>Why Programming is Important</h3>
+
+<ul>
+<li>It allows humans to communicate instructions to computers.</li>
+<li>It is used to create websites and applications.</li>
+<li>It is used to develop games.</li>
+<li>It is used in artificial intelligence.</li>
+<li>It is used in scientific research.</li>
+<li>It is used to automate repetitive tasks.</li>
+</ul>
+
+<div class="info-box">
+<strong>Important:</strong>
+A computer does not naturally understand human languages such as
+English. Programs eventually have to be translated into machine
+instructions that the computer processor can execute.
+</div>
+
+<h3>Basic Programming Process</h3>
+
+<ol>
+<li>Understand the problem.</li>
+<li>Design a solution.</li>
+<li>Write an algorithm.</li>
+<li>Write the program.</li>
+<li>Test the program.</li>
+<li>Debug errors.</li>
+<li>Maintain and improve the program.</li>
+</ol>
+
+`
+},
+
+{
+title: "Programming Languages",
+content: `
+
+<h3>Definition</h3>
+
+<p>
+A programming language is a formal language used to create
+instructions that a computer can execute.
+</p>
+
+<h3>Examples</h3>
+
+<ul>
+<li>Python</li>
+<li>JavaScript</li>
+<li>C++</li>
+<li>PHP</li>
+<li>Java</li>
+<li>C#</li>
+<li>Go</li>
+<li>Rust</li>
+</ul>
+
+<h3>High-Level Languages</h3>
+
+<p>
+High-level languages are designed to be easier for humans to
+read and write.
+</p>
+
+<p>
+Examples include Python, JavaScript, PHP and C++.
+</p>
+
+<h3>Low-Level Languages</h3>
+
+<p>
+Low-level languages are closer to the instructions understood
+directly by computer hardware.
+</p>
+
+<p>
+Examples include assembly language and machine code.
+</p>
+
+`
+},
+
+{
+title: "Variables and Data Types",
+content: `
+
+<h3>Variables</h3>
+
+<p>
+A variable is a named storage location used to hold data that
+a program may need to use.
+</p>
+
+<h3>Common Data Types</h3>
+
+<table class="note-table">
+
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>Integer</td>
+<td>Whole numbers</td>
+</tr>
+
+<tr>
+<td>Float</td>
+<td>Decimal numbers</td>
+</tr>
+
+<tr>
+<td>String</td>
+<td>Text</td>
+</tr>
+
+<tr>
+<td>Boolean</td>
+<td>True or false values</td>
+</tr>
+
+<tr>
+<td>Character</td>
+<td>A single character</td>
+</tr>
+
+</table>
+
+<h3>Example</h3>
+
+<pre><code>
+age = 20
+name = "John"
+student = true
+</code></pre>
+
+`
+},
+
+{
+title: "Operators",
+content: `
+
+<h3>Arithmetic Operators</h3>
+
+<table class="note-table">
+
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+</tr>
+
+<tr>
+<td>+</td>
+<td>Addition</td>
+</tr>
+
+<tr>
+<td>-</td>
+<td>Subtraction</td>
+</tr>
+
+<tr>
+<td>*</td>
+<td>Multiplication</td>
+</tr>
+
+<tr>
+<td>/</td>
+<td>Division</td>
+</tr>
+
+<tr>
+<td>%</td>
+<td>Remainder</td>
+</tr>
+
+</table>
+
+<h3>Comparison Operators</h3>
+
+<ul>
+<li>== Equal</li>
+<li>!= Not equal</li>
+<li>&gt; Greater than</li>
+<li>&lt; Less than</li>
+<li>&gt;= Greater than or equal</li>
+<li>&lt;= Less than or equal</li>
+</ul>
+
+`
+},
+
+{
+title: "Conditional Statements",
+content: `
+
+<h3>Definition</h3>
+
+<p>
+Conditional statements allow a program to make decisions based
+on whether a condition is true or false.
+</p>
+
+<h3>Example</h3>
+
+<pre><code>
+age = 20
+
+if age >= 18:
+    print("Adult")
+else:
+    print("Minor")
+</code></pre>
+
+<h3>Common Conditional Structures</h3>
+
+<ul>
+<li>if</li>
+<li>if...else</li>
+<li>if...elif...else</li>
+<li>switch statements in languages that support them</li>
+</ul>
+
+`
+},
+
+{
+title: "Loops",
+content: `
+
+<h3>Definition</h3>
+
+<p>
+A loop repeats a block of instructions until a specified condition
+is satisfied.
+</p>
+
+<h3>Common Loops</h3>
+
+<ul>
+<li>for loop</li>
+<li>while loop</li>
+<li>do...while loop</li>
+</ul>
+
+<h3>Example</h3>
+
+<pre><code>
+for i in range(5):
+    print(i)
+</code></pre>
+
+`
+},
+
+{
+title: "Functions",
+content: `
+
+<h3>Definition</h3>
+
+<p>
+A function is a reusable block of code designed to perform a
+specific task.
+</p>
+
+<h3>Advantages</h3>
+
+<ul>
+<li>Reduces code repetition.</li>
+<li>Improves organization.</li>
+<li>Makes programs easier to maintain.</li>
+<li>Makes testing easier.</li>
+</ul>
+
+<h3>Example</h3>
+
+<pre><code>
+function add(a, b) {
+    return a + b;
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Algorithms and Flowcharts",
+content: `
+
+<h3>Algorithm</h3>
+
+<p>
+An algorithm is a step-by-step procedure for solving a problem.
+</p>
+
+<h3>Example: Making Tea</h3>
+
+<ol>
+<li>Boil water.</li>
+<li>Put tea in a cup.</li>
+<li>Add hot water.</li>
+<li>Add sugar if desired.</li>
+<li>Stir.</li>
+<li>Serve.</li>
+</ol>
+
+<h3>Flowchart</h3>
+
+<p>
+A flowchart represents the steps of an algorithm using graphical
+symbols.
+</p>
+
+<ul>
+<li>Oval — Start/End</li>
+<li>Rectangle — Process</li>
+<li>Diamond — Decision</li>
+<li>Parallelogram — Input/Output</li>
+</ul>
+
+`
+}
+
+]
+
+},
+
+
+/* =========================================================
+   HTML
+========================================================= */
+
+html: {
+
+title: "HTML — HyperText Markup Language",
+
+topics: [
+
+{
+title: "Introduction to HTML",
+content: `
+
+<h3>What is HTML?</h3>
+
+<p>
+HTML stands for HyperText Markup Language. It is the standard
+markup language used to structure content on websites.
+</p>
+
+<h3>What HTML Does</h3>
+
+<ul>
+<li>Creates headings.</li>
+<li>Creates paragraphs.</li>
+<li>Creates links.</li>
+<li>Displays images.</li>
+<li>Creates forms.</li>
+<li>Creates tables.</li>
+<li>Structures web pages.</li>
+</ul>
+
+<h3>Basic HTML Document</h3>
+
+<pre><code>
+&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+
+    &lt;p&gt;Welcome to my website.&lt;/p&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+
+`
+},
+
+{
+title: "HTML Elements and Tags",
+content: `
+
+<h3>Tags</h3>
+
+<p>
+HTML uses tags to describe elements on a webpage.
+</p>
+
+<h3>Examples</h3>
+
+<pre><code>
+&lt;h1&gt;Heading&lt;/h1&gt;
+
+&lt;p&gt;Paragraph&lt;/p&gt;
+
+&lt;strong&gt;Important text&lt;/strong&gt;
+
+&lt;em&gt;Emphasized text&lt;/em&gt;
+</code></pre>
+
+<h3>Opening and Closing Tags</h3>
+
+<p>
+Most HTML elements have an opening tag and a closing tag.
+</p>
+
+<pre><code>
+&lt;p&gt;Hello&lt;/p&gt;
+</code></pre>
+
+<p>
+Some elements are void elements and do not require a closing tag.
+</p>
+
+<pre><code>
+&lt;img src="photo.jpg" alt="Photo"&gt;
+&lt;br&gt;
+&lt;input type="text"&gt;
+</code></pre>
+
+`
+},
+
+{
+title: "HTML Headings and Paragraphs",
+content: `
+
+<h3>Headings</h3>
+
+<p>
+HTML provides six heading levels from h1 to h6.
+</p>
+
+<pre><code>
+&lt;h1&gt;Main Heading&lt;/h1&gt;
+&lt;h2&gt;Section Heading&lt;/h2&gt;
+&lt;h3&gt;Subsection&lt;/h3&gt;
+&lt;h4&gt;Heading 4&lt;/h4&gt;
+&lt;h5&gt;Heading 5&lt;/h5&gt;
+&lt;h6&gt;Heading 6&lt;/h6&gt;
+</code></pre>
+
+<h3>Paragraphs</h3>
+
+<pre><code>
+&lt;p&gt;
+This is a paragraph of text.
+&lt;/p&gt;
+</code></pre>
+
+`
+},
+
+{
+title: "Links and Images",
+content: `
+
+<h3>Creating Links</h3>
+
+<pre><code>
+&lt;a href="https://example.com"&gt;
+Visit Website
+&lt;/a&gt;
+</code></pre>
+
+<h3>Opening a Link in a New Tab</h3>
+
+<pre><code>
+&lt;a href="https://example.com"
+   target="_blank"
+   rel="noopener"&gt;
+Open Website
+&lt;/a&gt;
+</code></pre>
+
+<h3>Images</h3>
+
+<pre><code>
+&lt;img
+    src="photo.jpg"
+    alt="Description of photo"
+    width="300"
+&gt;
+</code></pre>
+
+<div class="warning-box">
+Always provide meaningful alternative text with the alt attribute
+when an image conveys information.
+</div>
+
+`
+},
+
+{
+title: "HTML Lists",
+content: `
+
+<h3>Unordered List</h3>
+
+<pre><code>
+&lt;ul&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li&gt;CSS&lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<h3>Ordered List</h3>
+
+<pre><code>
+&lt;ol&gt;
+    &lt;li&gt;Login&lt;/li&gt;
+    &lt;li&gt;Select Course&lt;/li&gt;
+    &lt;li&gt;Take Test&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+
+`
+},
+
+{
+title: "HTML Tables",
+content: `
+
+<h3>Tables</h3>
+
+<p>
+Tables are used to present structured tabular information.
+</p>
+
+<pre><code>
+&lt;table&gt;
+
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Score&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+        &lt;td&gt;John&lt;/td&gt;
+        &lt;td&gt;85&lt;/td&gt;
+    &lt;/tr&gt;
+
+&lt;/table&gt;
+</code></pre>
+
+<h3>Main Table Elements</h3>
+
+<ul>
+<li>table</li>
+<li>tr</li>
+<li>th</li>
+<li>td</li>
+<li>thead</li>
+<li>tbody</li>
+<li>tfoot</li>
+</ul>
+
+`
+},
+
+{
+title: "HTML Forms",
+content: `
+
+<h3>Purpose of Forms</h3>
+
+<p>
+Forms allow users to submit information to a website.
+</p>
+
+<pre><code>
+&lt;form&gt;
+
+    &lt;label&gt;Full Name&lt;/label&gt;
+
+    &lt;input
+        type="text"
+        name="fullname"
+        required
+    &gt;
+
+    &lt;label&gt;Email&lt;/label&gt;
+
+    &lt;input
+        type="email"
+        name="email"
+        required
+    &gt;
+
+    &lt;button type="submit"&gt;
+        Submit
+    &lt;/button&gt;
+
+&lt;/form&gt;
+</code></pre>
+
+<h3>Common Input Types</h3>
+
+<ul>
+<li>text</li>
+<li>email</li>
+<li>password</li>
+<li>number</li>
+<li>date</li>
+<li>checkbox</li>
+<li>radio</li>
+<li>file</li>
+<li>submit</li>
+</ul>
+
+`
+},
+
+{
+title: "Semantic HTML",
+content: `
+
+<h3>Semantic Elements</h3>
+
+<p>
+Semantic HTML elements describe the meaning or role of their
+content.
+</p>
+
+<pre><code>
+&lt;header&gt;&lt;/header&gt;
+
+&lt;nav&gt;&lt;/nav&gt;
+
+&lt;main&gt;&lt;/main&gt;
+
+&lt;section&gt;&lt;/section&gt;
+
+&lt;article&gt;&lt;/article&gt;
+
+&lt;aside&gt;&lt;/aside&gt;
+
+&lt;footer&gt;&lt;/footer&gt;
+</code></pre>
+
+<div class="success-box">
+Semantic HTML improves document structure, accessibility and
+maintainability.
+</div>
+
+`
+}
+
+]
+
+},
+
+
+/* =========================================================
+   CSS
+========================================================= */
+
+css: {
+
+title: "CSS — Cascading Style Sheets",
+
+topics: [
+
+{
+title: "Introduction to CSS",
+content: `
+
+<h3>What is CSS?</h3>
+
+<p>
+CSS stands for Cascading Style Sheets. It is used to control the
+presentation and appearance of HTML documents.
+</p>
+
+<h3>CSS Can Control</h3>
+
+<ul>
+<li>Colors</li>
+<li>Fonts</li>
+<li>Spacing</li>
+<li>Layout</li>
+<li>Borders</li>
+<li>Animations</li>
+<li>Responsive design</li>
+</ul>
+
+<h3>Basic CSS</h3>
+
+<pre><code>
+p {
+    color: blue;
+    font-size: 18px;
+}
+</code></pre>
+
+`
+},
+
+{
+title: "CSS Selectors",
+content: `
+
+<h3>Element Selector</h3>
+
+<pre><code>
+p {
+    color: red;
+}
+</code></pre>
+
+<h3>Class Selector</h3>
+
+<pre><code>
+.card {
+    padding: 20px;
+}
+</code></pre>
+
+<h3>ID Selector</h3>
+
+<pre><code>
+#header {
+    background: black;
+}
+</code></pre>
+
+<h3>Universal Selector</h3>
+
+<pre><code>
+* {
+    box-sizing: border-box;
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Colors and Backgrounds",
+content: `
+
+<h3>Colors</h3>
+
+<pre><code>
+body {
+    color: #222;
+    background-color: #f5f5f5;
+}
+</code></pre>
+
+<h3>Background Image</h3>
+
+<pre><code>
+.hero {
+    background-image: url("image.jpg");
+    background-size: cover;
+    background-position: center;
+}
+</code></pre>
+
+`
+},
+
+{
+title: "CSS Box Model",
+content: `
+
+<h3>Box Model</h3>
+
+<p>
+Every HTML element can be understood as a box consisting of:
+</p>
+
+<ul>
+<li>Content</li>
+<li>Padding</li>
+<li>Border</li>
+<li>Margin</li>
+</ul>
+
+<pre><code>
+.card {
+    width: 300px;
+    padding: 20px;
+    border: 2px solid black;
+    margin: 20px;
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Flexbox",
+content: `
+
+<h3>Introduction</h3>
+
+<p>
+Flexbox is a CSS layout system designed to arrange elements
+efficiently in rows or columns.
+</p>
+
+<pre><code>
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+</code></pre>
+
+<h3>Important Properties</h3>
+
+<ul>
+<li>display: flex</li>
+<li>flex-direction</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>flex-wrap</li>
+<li>gap</li>
+</ul>
+
+`
+},
+
+{
+title: "CSS Grid",
+content: `
+
+<h3>CSS Grid</h3>
+
+<p>
+Grid is useful for creating two-dimensional layouts involving
+rows and columns.
+</p>
+
+<pre><code>
+.container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Responsive Design",
+content: `
+
+<h3>Responsive Web Design</h3>
+
+<p>
+Responsive design allows a website to adapt to different screen
+sizes such as phones, tablets and desktop computers.
+</p>
+
+<h3>Media Query</h3>
+
+<pre><code>
+@media (max-width: 768px) {
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+}
+</code></pre>
+
+`
+},
+
+{
+title: "CSS Animations",
+content: `
+
+<h3>Animation</h3>
+
+<pre><code>
+@keyframes slide {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100px);
+    }
+
+}
+
+.box {
+    animation: slide 2s infinite alternate;
+}
+</code></pre>
+
+`
+}
+
+]
+
+},
+
+
+/* =========================================================
+   JAVASCRIPT
+========================================================= */
+
+javascript: {
+
+title: "JavaScript",
+
+topics: [
+
+{
+title: "Introduction to JavaScript",
+content: `
+
+<h3>What is JavaScript?</h3>
+
+<p>
+JavaScript is a programming language commonly used to add
+interactivity and dynamic behavior to web pages.
+</p>
+
+<h3>JavaScript Can</h3>
+
+<ul>
+<li>Respond to button clicks.</li>
+<li>Validate forms.</li>
+<li>Change HTML content.</li>
+<li>Change CSS styles.</li>
+<li>Communicate with servers.</li>
+<li>Build web applications.</li>
+</ul>
+
+<pre><code>
+console.log("Hello World");
+</code></pre>
+
+`
+},
+
+{
+title: "Variables",
+content: `
+
+<h3>Declaring Variables</h3>
+
+<pre><code>
+let name = "John";
+
+const age = 20;
+
+var city = "Lagos";
+</code></pre>
+
+<h3>let</h3>
+
+<p>
+Used for variables whose values may change.
+</p>
+
+<h3>const</h3>
+
+<p>
+Used when the variable binding should not be reassigned.
+</p>
+
+`
+},
+
+{
+title: "Data Types",
+content: `
+
+<h3>JavaScript Data Types</h3>
+
+<ul>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+<li>Undefined</li>
+<li>Null</li>
+<li>BigInt</li>
+<li>Symbol</li>
+<li>Object</li>
+</ul>
+
+<pre><code>
+let username = "Alex";
+
+let score = 90;
+
+let passed = true;
+
+let result = null;
+</code></pre>
+
+`
+},
+
+{
+title: "Functions",
+content: `
+
+<h3>Function Declaration</h3>
+
+<pre><code>
+function add(a, b) {
+
+    return a + b;
+
+}
+
+console.log(add(5, 3));
+</code></pre>
+
+<h3>Arrow Function</h3>
+
+<pre><code>
+const multiply = (a, b) => a * b;
+</code></pre>
+
+`
+},
+
+{
+title: "Conditions",
+content: `
+
+<h3>if Statement</h3>
+
+<pre><code>
+let score = 75;
+
+if (score >= 50) {
+
+    console.log("Passed");
+
+} else {
+
+    console.log("Failed");
+
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Loops",
+content: `
+
+<h3>for Loop</h3>
+
+<pre><code>
+for (let i = 1; i <= 5; i++) {
+
+    console.log(i);
+
+}
+</code></pre>
+
+<h3>while Loop</h3>
+
+<pre><code>
+let i = 1;
+
+while (i <= 5) {
+
+    console.log(i);
+
+    i++;
+
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Arrays and Objects",
+content: `
+
+<h3>Array</h3>
+
+<pre><code>
+const languages = [
+    "HTML",
+    "CSS",
+    "JavaScript"
+];
+
+console.log(languages[0]);
+</code></pre>
+
+<h3>Object</h3>
+
+<pre><code>
+const student = {
+
+    name: "John",
+    age: 20,
+    course: "Computer Science"
+
+};
+</code></pre>
+
+`
+},
+
+{
+title: "DOM Manipulation",
+content: `
+
+<h3>What is the DOM?</h3>
+
+<p>
+The Document Object Model represents an HTML document as objects
+that JavaScript can access and modify.
+</p>
+
+<pre><code>
+document.getElementById("title")
+    .textContent = "Welcome";
+</code></pre>
+
+<h3>Changing Styles</h3>
+
+<pre><code>
+document.getElementById("box")
+    .style.backgroundColor = "blue";
+</code></pre>
+
+`
+},
+
+{
+title: "Events",
+content: `
+
+<h3>Events</h3>
+
+<p>
+Events occur when users interact with a webpage.
+</p>
+
+<h3>Examples</h3>
+
+<ul>
+<li>click</li>
+<li>submit</li>
+<li>change</li>
+<li>input</li>
+<li>mouseover</li>
+<li>keydown</li>
+</ul>
+
+<pre><code>
+button.addEventListener(
+    "click",
+    function() {
+        alert("Button clicked!");
+    }
+);
+</code></pre>
+
+`
+},
+
+{
+title: "Fetch API",
+content: `
+
+<h3>What is Fetch?</h3>
+
+<p>
+The Fetch API allows JavaScript applications to make network
+requests.
+</p>
+
+<pre><code>
+fetch("/api/users")
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+</code></pre>
+
+`
+}
+
+]
+
+},
+
+
+/* =========================================================
+   PHP
+========================================================= */
+
+php: {
+
+title: "PHP",
+
+topics: [
+
+{
+title: "Introduction to PHP",
+content: `
+
+<h3>What is PHP?</h3>
+
+<p>
+PHP is a server-side scripting language commonly used for
+building dynamic websites and web applications.
+</p>
+
+<h3>Basic PHP</h3>
+
+<pre><code>
+&lt;?php
+
+echo "Hello World";
+
+?&gt;
+</code></pre>
+
+`
+},
+
+{
+title: "Variables",
+content: `
+
+<h3>PHP Variables</h3>
+
+<p>
+PHP variables begin with the dollar sign.
+</p>
+
+<pre><code>
+&lt;?php
+
+$name = "John";
+
+$age = 20;
+
+echo $name;
+
+?&gt;
+</code></pre>
+
+`
+},
+
+{
+title: "Data Types",
+content: `
+
+<h3>Common PHP Data Types</h3>
+
+<ul>
+<li>String</li>
+<li>Integer</li>
+<li>Float</li>
+<li>Boolean</li>
+<li>Array</li>
+<li>Object</li>
+<li>NULL</li>
+</ul>
+
+`
+},
+
+{
+title: "Conditions",
+content: `
+
+<h3>if Statement</h3>
+
+<pre><code>
+&lt;?php
+
+$score = 70;
+
+if ($score >= 50) {
+
+    echo "Passed";
+
+} else {
+
+    echo "Failed";
+
+}
+
+?&gt;
+</code></pre>
+
+`
+},
+
+{
+title: "Loops",
+content: `
+
+<h3>for Loop</h3>
+
+<pre><code>
+&lt;?php
+
+for ($i = 1; $i <= 5; $i++) {
+
+    echo $i;
+
+}
+
+?&gt;
+</code></pre>
+
+`
+},
+
+{
+title: "Functions",
+content: `
+
+<h3>PHP Function</h3>
+
+<pre><code>
+&lt;?php
+
+function add($a, $b) {
+
+    return $a + $b;
+
+}
+
+echo add(5, 3);
+
+?&gt;
+</code></pre>
+
+`
+},
+
+{
+title: "Forms and POST",
+content: `
+
+<h3>Receiving Form Data</h3>
+
+<pre><code>
+&lt;?php
+
+$name = $_POST["name"];
+
+echo $name;
+
+?&gt;
+</code></pre>
+
+<div class="warning-box">
+Never trust user input. Validate and sanitize data appropriately,
+and use parameterized database queries when interacting with a
+database.
+</div>
+
+`
+},
+
+{
+title: "PHP and MySQL",
+content: `
+
+<h3>Database Connection</h3>
+
+<p>
+PHP applications can communicate with MySQL databases using
+extensions such as PDO or MySQLi.
+</p>
+
+<h3>PDO Example</h3>
+
+<pre><code>
+&lt;?php
+
+$pdo = new PDO(
+    "mysql:host=localhost;dbname=school",
+    "root",
+    ""
+);
+
+$pdo-&gt;setAttribute(
+    PDO::ATTR_ERRMODE,
+    PDO::ERRMODE_EXCEPTION
+);
+
+?&gt;
+</code></pre>
+
+`
+}
+
+]
+
+},
+
+
+/* =========================================================
+   C++
+========================================================= */
+
+cpp: {
+
+title: "C++",
+
+topics: [
+
+{
+title: "Introduction to C++",
+content: `
+
+<h3>What is C++?</h3>
+
+<p>
+C++ is a general-purpose programming language used in software
+development, games, embedded systems, high-performance
+applications and many other areas.
+</p>
+
+<h3>Basic Program</h3>
+
+<pre><code>
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+
+    cout &lt;&lt; "Hello World";
+
+    return 0;
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Variables and Data Types",
+content: `
+
+<pre><code>
+int age = 20;
+
+double price = 50.5;
+
+char grade = 'A';
+
+bool passed = true;
+
+string name = "John";
+</code></pre>
+
+<h3>Common Types</h3>
+
+<ul>
+<li>int</li>
+<li>float</li>
+<li>double</li>
+<li>char</li>
+<li>bool</li>
+<li>string</li>
+</ul>
+
+`
+},
+
+{
+title: "Input and Output",
+content: `
+
+<h3>Output</h3>
+
+<pre><code>
+cout &lt;&lt; "Hello";
+</code></pre>
+
+<h3>Input</h3>
+
+<pre><code>
+int age;
+
+cin &gt;&gt; age;
+</code></pre>
+
+`
+},
+
+{
+title: "Conditions",
+content: `
+
+<pre><code>
+int age = 20;
+
+if (age >= 18) {
+
+    cout &lt;&lt; "Adult";
+
+} else {
+
+    cout &lt;&lt; "Minor";
+
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Loops",
+content: `
+
+<h3>for Loop</h3>
+
+<pre><code>
+for (int i = 0; i &lt; 5; i++) {
+
+    cout &lt;&lt; i;
+
+}
+</code></pre>
+
+<h3>while Loop</h3>
+
+<pre><code>
+int i = 0;
+
+while (i &lt; 5) {
+
+    cout &lt;&lt; i;
+
+    i++;
+
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Functions",
+content: `
+
+<pre><code>
+int add(int a, int b) {
+
+    return a + b;
+
+}
+
+int main() {
+
+    cout &lt;&lt; add(5, 3);
+
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Arrays",
+content: `
+
+<pre><code>
+int numbers[5] = {
+    10,
+    20,
+    30,
+    40,
+    50
+};
+
+cout &lt;&lt; numbers[0];
+</code></pre>
+
+`
+},
+
+{
+title: "Object-Oriented Programming",
+content: `
+
+<h3>OOP</h3>
+
+<p>
+C++ supports object-oriented programming. Important concepts
+include classes, objects, inheritance, polymorphism and
+encapsulation.
+</p>
+
+<pre><code>
+class Student {
+
+public:
+
+    string name;
+
+    void display() {
+
+        cout &lt;&lt; name;
+
+    }
+
+};
+</code></pre>
+
+`
+}
+
+]
+
+},
+
+
+/* =========================================================
+   MYSQL
+========================================================= */
+
+mysql: {
+
+title: "MySQL Database",
+
+topics: [
+
+{
+title: "Introduction to Databases",
+content: `
+
+<h3>What is a Database?</h3>
+
+<p>
+A database is an organized collection of data that can be stored,
+managed and retrieved efficiently.
+</p>
+
+<h3>What is MySQL?</h3>
+
+<p>
+MySQL is a relational database management system that uses SQL
+for interacting with structured data.
+</p>
+
+`
+},
+
+{
+title: "Creating a Database",
+content: `
+
+<pre><code>
+CREATE DATABASE school;
+</code></pre>
+
+<h3>Select Database</h3>
+
+<pre><code>
+USE school;
+</code></pre>
+
+`
+},
+
+{
+title: "Creating Tables",
+content: `
+
+<pre><code>
+CREATE TABLE students (
+
+    id INT PRIMARY KEY AUTO_INCREMENT,
+
+    name VARCHAR(100),
+
+    email VARCHAR(150),
+
+    age INT
+
+);
+</code></pre>
+
+`
+},
+
+{
+title: "INSERT",
+content: `
+
+<h3>Adding Data</h3>
+
+<pre><code>
+INSERT INTO students
+(name, email, age)
+
+VALUES
+('John',
+ 'john@example.com',
+ 20);
+</code></pre>
+
+`
+},
+
+{
+title: "SELECT",
+content: `
+
+<h3>Reading Data</h3>
+
+<pre><code>
+SELECT *
+FROM students;
+</code></pre>
+
+<h3>Select Specific Columns</h3>
+
+<pre><code>
+SELECT name, email
+FROM students;
+</code></pre>
+
+`
+},
+
+{
+title: "UPDATE",
+content: `
+
+<pre><code>
+UPDATE students
+
+SET age = 21
+
+WHERE id = 1;
+</code></pre>
+
+<div class="warning-box">
+Always use an appropriate WHERE condition when updating records
+unless you intentionally want to modify every row.
+</div>
+
+`
+},
+
+{
+title: "DELETE",
+content: `
+
+<pre><code>
+DELETE FROM students
+WHERE id = 1;
+</code></pre>
+
+<div class="warning-box">
+A DELETE statement without a WHERE clause can remove all rows
+from a table.
+</div>
+
+`
+},
+
+{
+title: "Relationships and JOIN",
+content: `
+
+<h3>Database Relationships</h3>
+
+<p>
+Relational databases can connect tables using keys.
+</p>
+
+<h3>INNER JOIN</h3>
+
+<pre><code>
+SELECT students.name, courses.title
+
+FROM students
+
+INNER JOIN courses
+
+ON students.course_id =
+   courses.id;
+</code></pre>
+
+`
+},
+
+{
+title: "Primary and Foreign Keys",
+content: `
+
+<h3>Primary Key</h3>
+
+<p>
+A primary key uniquely identifies each record in a table.
+</p>
+
+<h3>Foreign Key</h3>
+
+<p>
+A foreign key references a key in another table and can be used
+to establish relationships between tables.
+</p>
+
+`
+}
+
+]
+
+},
+
+
+/* =========================================================
+   PYTHON
+========================================================= */
+
+python: {
+
+title: "Python",
+
+topics: [
+
+{
+title: "Introduction to Python",
+content: `
+
+<h3>What is Python?</h3>
+
+<p>
+Python is a high-level, general-purpose programming language
+known for its readable syntax and broad ecosystem.
+</p>
+
+<h3>Basic Program</h3>
+
+<pre><code>
+print("Hello World")
+</code></pre>
+
+<h3>Applications</h3>
+
+<ul>
+<li>Web development</li>
+<li>Data analysis</li>
+<li>Machine learning</li>
+<li>Automation</li>
+<li>Scientific computing</li>
+<li>Software development</li>
+</ul>
+
+`
+},
+
+{
+title: "Variables",
+content: `
+
+<pre><code>
+name = "John"
+
+age = 20
+
+price = 50.5
+
+passed = True
+</code></pre>
+
+<p>
+Python determines the type of a variable from the value assigned
+to it.
+</p>
+
+`
+},
+
+{
+title: "Data Types",
+content: `
+
+<h3>Common Python Types</h3>
+
+<ul>
+<li>str</li>
+<li>int</li>
+<li>float</li>
+<li>bool</li>
+<li>list</li>
+<li>tuple</li>
+<li>set</li>
+<li>dict</li>
+</ul>
+
+<pre><code>
+name = "John"
+
+age = 20
+
+scores = [80, 75, 90]
+
+student = {
+    "name": "John",
+    "age": 20
+}
+</code></pre>
+
+`
+},
+
+{
+title: "Conditions",
+content: `
+
+<pre><code>
+score = 75
+
+if score >= 50:
+
+    print("Passed")
+
+else:
+
+    print("Failed")
+</code></pre>
+
+`
+},
+
+{
+title: "Loops",
+content: `
+
+<h3>for Loop</h3>
+
+<pre><code>
+for number in range(5):
+
+    print(number)
+</code></pre>
+
+<h3>while Loop</h3>
+
+<pre><code>
+count = 0
+
+while count < 5:
+
+    print(count)
+
+    count += 1
+</code></pre>
+
+`
+},
+
+{
+title: "Functions",
+content: `
+
+<pre><code>
+def add(a, b):
+
+    return a + b
+
+result = add(5, 3)
+
+print(result)
+</code></pre>
+
+`
+},
+
+{
+title: "Lists",
+content: `
+
+<pre><code>
+languages = [
+    "Python",
+    "JavaScript",
+    "C++"
+]
+
+print(languages[0])
+
+languages.append("PHP")
+</code></pre>
+
+`
+},
+
+{
+title: "Dictionaries",
+content: `
+
+<pre><code>
+student = {
+
+    "name": "John",
+
+    "age": 20,
+
+    "course": "Computer Science"
+
+}
+
+print(student["name"])
+</code></pre>
+
+`
+},
+
+{
+title: "Object-Oriented Programming",
+content: `
+
+<h3>Classes</h3>
+
+<pre><code>
+class Student:
+
+    def __init__(self, name):
+
+        self.name = name
+
+    def display(self):
+
+        print(self.name)
+
+
+student = Student("John")
+
+student.display()
+</code></pre>
+
+`
+},
+
+{
+title: "Exception Handling",
+content: `
+
+<h3>Handling Errors</h3>
+
+<pre><code>
+try:
+
+    number = int(input("Enter number:"))
+
+    print(number)
+
+except ValueError:
+
+    print("Invalid number")
+</code></pre>
+
+<p>
+Exception handling allows a program to respond to certain runtime
+errors without immediately terminating.
+</p>
+
+`
+}
+
+]
+
+}
+
+};
+
+
+/* =========================================================
+   APPLICATION STATE
+========================================================= */
+
+let currentCourse = "intro";
+let currentTopic = 0;
+
+
+/* =========================================================
+   SELECT COURSE
+========================================================= */
+
+function selectCourse(courseName, button) {
+
+    currentCourse = courseName;
+
+    currentTopic = 0;
+
+    document
+        .querySelectorAll(".course-buttons button")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    buildTopicList();
+
+    showTopic();
+
+}
+
+
+/* =========================================================
+   BUILD TOPIC LIST
+========================================================= */
+
+function buildTopicList() {
+
+    const list = document.getElementById("topicList");
+
+    list.innerHTML = "";
+
+    const topics = courses[currentCourse].topics;
+
+    topics.forEach((topic, index) => {
+
+        const li = document.createElement("li");
+
+        const button = document.createElement("button");
+
+        button.textContent =
+            `${index + 1}. ${topic.title}`;
+
+        button.onclick = () => {
+
+            currentTopic = index;
+
+            showTopic();
+
+        };
+
+        li.appendChild(button);
+
+        list.appendChild(li);
+
+    });
+
+}
+
+
+/* =========================================================
+   SHOW TOPIC
+========================================================= */
+
+function showTopic() {
+
+    const course = courses[currentCourse];
+
+    const topic = course.topics[currentTopic];
+
+    const noteArea =
+        document.getElementById("noteArea");
+
+    noteArea.innerHTML = `
+
+        <h2>${topic.title}</h2>
+
+        <p>
+            <strong>${course.title}</strong>
+        </p>
+
+        ${topic.content}
+
+        <div class="note-navigation">
+
+            <button
+                class="previous-btn"
+                onclick="previousTopic()"
+                ${currentTopic === 0 ? "disabled" : ""}>
+                ← Previous
+            </button>
+
+            <button
+                class="next-btn"
+                onclick="nextTopic()"
+                ${currentTopic === course.topics.length - 1 ? "disabled" : ""}>
+                Next →
+            </button>
+
+        </div>
+    `;
+
+    updateSidebar();
+
+    updateProgress();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
+   SIDEBAR ACTIVE TOPIC
+========================================================= */
+
+function updateSidebar() {
+
+    document
+        .querySelectorAll(".topic-list button")
+        .forEach((button, index) => {
+
+            button.classList.toggle(
+                "active",
+                index === currentTopic
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   NEXT TOPIC
+========================================================= */
+
+function nextTopic() {
+
+    const total =
+        courses[currentCourse].topics.length;
+
+    if (currentTopic < total - 1) {
+
+        currentTopic++;
+
+        showTopic();
+
+    }
+
+}
+
+
+/* =========================================================
+   PREVIOUS TOPIC
+========================================================= */
+
+function previousTopic() {
+
+    if (currentTopic > 0) {
+
+        currentTopic--;
+
+        showTopic();
+
+    }
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const total =
+        courses[currentCourse].topics.length;
+
+    const progress =
+        Math.round(
+            ((currentTopic + 1) / total) * 100
+        );
+
+    document.getElementById("progressBar")
+        .style.width = progress + "%";
+
+    document.getElementById("progressText")
+        .textContent = progress + "%";
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchNotes() {
+
+    const query =
+        document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase()
+            .trim();
+
+    const topics =
+        courses[currentCourse].topics;
+
+    if (!query) {
+
+        buildTopicList();
+
+        return;
+
+    }
+
+    const list =
+        document.getElementById("topicList");
+
+    list.innerHTML = "";
+
+    topics.forEach((topic, index) => {
+
+        const searchableText =
+            (
+                topic.title +
+                " " +
+                topic.content
+            ).toLowerCase();
+
+        if (searchableText.includes(query)) {
+
+            const li =
+                document.createElement("li");
+
+            const button =
+                document.createElement("button");
+
+            button.textContent =
+                `${index + 1}. ${topic.title}`;
+
+            button.onclick = () => {
+
+                currentTopic = index;
+
+                showTopic();
+
+            };
+
+            li.appendChild(button);
+
+            list.appendChild(li);
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+buildTopicList();
+
+showTopic();
+
+</script>
+
+</body>
+</html>

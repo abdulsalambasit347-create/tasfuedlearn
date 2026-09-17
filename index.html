@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HTML | TASFUED Learn Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="course-page">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="course-sidebar">
+
+        <div class="course-brand">
+
+            <div class="course-brand-logo">
+                <img src="tasued.jpg" alt="TASFUED Logo">
+            </div>
+
+            <div>
+                <h2>TASFUED</h2>
+                <span>LEARN PORTAL</span>
+            </div>
+
+        </div>
+
+
+        <nav class="course-navigation">
+
+            <a href="dashboard.html" class="course-nav-link">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="programming.html" class="course-nav-link">
+                <span>💻</span>
+                Programming
+            </a>
+
+            <a href="html.html" class="course-nav-link active">
+                <span>🌐</span>
+                HTML
+            </a>
+
+            <a href="css.html" class="course-nav-link">
+                <span>🎨</span>
+                CSS
+            </a>
+
+            <a href="javascript.html" class="course-nav-link">
+                <span>⚡</span>
+                JavaScript
+            </a>
+
+            <a href="php.html" class="course-nav-link">
+                <span>🐘</span>
+                PHP
+            </a>
+
+            <a href="mysql.html" class="course-nav-link">
+                <span>🗄️</span>
+                MySQL
+            </a>
+
+            <a href="python.html" class="course-nav-link">
+                <span>🐍</span>
+                Python
+            </a>
+
+            <a href="c++.html" class="course-nav-link">
+                <span>⚙️</span>
+                C++
+            </a>
+
+            <a href="quiz.html" class="course-nav-link">
+                <span>📝</span>
+                Quiz
+            </a>
+
+        </nav>
+
+
+        <div class="course-sidebar-bottom">
+
+            <button onclick="logout()" class="course-logout">
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN AREA
+    ========================== -->
+
+    <main class="course-main">
+
+        <!-- HEADER -->
+
+        <header class="course-header">
+
+            <div class="course-header-left">
+
+                <button class="course-menu" onclick="toggleCourseMenu()">
+                    ☰
+                </button>
+
+                <div>
+                    <span class="course-small-title">
+                        TASFUED LEARN PORTAL
+                    </span>
+
+                    <h1>HTML Course</h1>
+                </div>
+
+            </div>
+
+
+            <div class="course-header-right">
+
+                <div class="course-user-avatar">
+                    AB
+                </div>
+
+                <div class="course-user-text">
+                    <strong>Abdulsalam Basit</strong>
+                    <small>Computer Science</small>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <section class="course-content">
+
+
+            <!-- HERO -->
+
+            <div class="html-course-hero">
+
+                <div class="html-hero-content">
+
+                    <span class="html-label">
+                        WEB DEVELOPMENT
+                    </span>
+
+                    <h2>
+                        Learn HTML
+                    </h2>
+
+                    <p>
+                        Master the foundation of modern web development.
+                        Learn how to structure professional websites using
+                        HTML5.
+                    </p>
+
+                    <a href="#lessons" class="start-course-btn">
+                        Start Learning →
+                    </a>
+
+                </div>
+
+
+                <div class="html-logo-box">
+
+                    <div class="html-logo">
+                        HTML
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- COURSE STATISTICS -->
+
+            <div class="course-statistics">
+
+                <div class="course-stat-card">
+
+                    <div class="course-stat-icon">
+                        📚
+                    </div>
+
+                    <div>
+                        <span>LESSONS</span>
+                        <strong>10</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="course-stat-card">
+
+                    <div class="course-stat-icon">
+                        📝
+                    </div>
+
+                    <div>
+                        <span>QUIZ QUESTIONS</span>
+                        <strong>30</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="course-stat-card">
+
+                    <div class="course-stat-icon">
+                        🎯
+                    </div>
+
+                    <div>
+                        <span>LEVEL</span>
+                        <strong>Beginner</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="course-stat-card">
+
+                    <div class="course-stat-icon">
+                        ⏱️
+                    </div>
+
+                    <div>
+                        <span>EST. TIME</span>
+                        <strong>4 Hrs</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LESSONS -->
+
+            <div id="lessons" class="course-section">
+
+                <div class="course-section-heading">
+
+                    <div>
+                        <span>COURSE CONTENT</span>
+                        <h2>HTML Lessons</h2>
+                    </div>
+
+                    <span class="lesson-count">
+                        10 Lessons
+                    </span>
+
+                </div>
+
+
+                <div class="html-lessons-grid">
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            01
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>Introduction to HTML</h3>
+
+                            <p>
+                                Learn what HTML is and how websites
+                                are created.
+                            </p>
+
+                            <span>
+                                Beginner
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            02
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>HTML Document Structure</h3>
+
+                            <p>
+                                Understand HTML, head, body and document
+                                structure.
+                            </p>
+
+                            <span>
+                                Beginner
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            03
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>HTML Headings & Paragraphs</h3>
+
+                            <p>
+                                Learn how to create headings and paragraphs.
+                            </p>
+
+                            <span>
+                                Beginner
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            04
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>Links & Navigation</h3>
+
+                            <p>
+                                Create links between pages and websites.
+                            </p>
+
+                            <span>
+                                Beginner
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            05
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>Images & Multimedia</h3>
+
+                            <p>
+                                Learn how to add images and media to pages.
+                            </p>
+
+                            <span>
+                                Beginner
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            06
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>HTML Lists</h3>
+
+                            <p>
+                                Learn ordered and unordered lists.
+                            </p>
+
+                            <span>
+                                Beginner
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            07
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>HTML Tables</h3>
+
+                            <p>
+                                Create structured tables using HTML.
+                            </p>
+
+                            <span>
+                                Intermediate
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            08
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>HTML Forms</h3>
+
+                            <p>
+                                Create forms for collecting user information.
+                            </p>
+
+                            <span>
+                                Intermediate
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            09
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>HTML5 Semantic Elements</h3>
+
+                            <p>
+                                Learn modern semantic HTML5 elements.
+                            </p>
+
+                            <span>
+                                Intermediate
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <a href="#" class="html-lesson-card">
+
+                        <div class="lesson-number">
+                            10
+                        </div>
+
+                        <div class="lesson-content">
+
+                            <h3>HTML Best Practices</h3>
+
+                            <p>
+                                Learn how to write clean and professional HTML.
+                            </p>
+
+                            <span>
+                                Advanced
+                            </span>
+
+                        </div>
+
+                        <div class="lesson-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUIZ -->
+
+            <div class="html-quiz-card">
+
+                <div>
+
+                    <span>
+                        TEST YOUR KNOWLEDGE
+                    </span>
+
+                    <h2>
+                        Ready for the HTML Quiz?
+                    </h2>
+
+                    <p>
+                        Test what you have learned with HTML
+                        multiple-choice questions.
+                    </p>
+
+                </div>
+
+                <a href="quiz.html">
+                    Take Quiz →
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="course-footer">
+
+            <div>
+                <strong>TASFUED LEARN PORTAL</strong>
+                <span>Computer Science Learning Platform</span>
+            </div>
+
+            <div>
+                © 2026 TASFUED Learn Portal
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        /* LOGIN PROTECTION */
+
+        if (!localStorage.getItem("currentUser")) {
+            window.location.href = "login.html";
+        }
+
+
+        /* LOGOUT */
+
+        function logout() {
+
+            localStorage.removeItem("currentUser");
+
+            window.location.href = "login.html";
+
+        }
+
+
+        /* MOBILE MENU */
+
+        function toggleCourseMenu() {
+
+            document
+                .querySelector(".course-sidebar")
+                .classList.toggle("course-sidebar-open");
+
+        }
+
+    </script>
+
+</body>
+
+</html>

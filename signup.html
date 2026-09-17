@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up - SIWES</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="background-logo">
+ 
+  <div class="container">
+    <h2>CREATE ACCOUNT</h2>
+        <!-- Replace with your actual logo path if needed -->
+    <img src="tasued.jpg" alt="tasued" class="logo" onerror="this.style.display='none'">
+
+    <!-- ========== SIGNUP FORM ========== -->
+    <div id="signupSection">
+      <input type="text" id="fullname" placeholder="Full Name">
+      <input type="email" id="email" placeholder="Email Address">
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password (min 6 characters)">
+      
+      <button onclick="startSignup()">Sign Up</button>
+      <p class="error" id="signupError"></p>
+      
+      <div class="link">
+        Already have an account? <a href="login.html">Login here</a>
+      </div>
+    </div>
+
+    <!-- ========== VERIFICATION FORM ========== -->
+    <div id="verifySection">
+      <p class="info">
+        A verification code has been generated.<br>
+        <strong>Check the alert box</strong> (or browser console).
+      </p>
+      
+      <input type="text" id="verifyCode" placeholder="Enter 6-digit code" maxlength="6">
+      
+      <button onclick="verifyAccount()">Verify & Create Account</button>
+      <p class="error" id="verifyError"></p>
+      <p class="success" id="verifySuccess"></p>
+    </div>
+  </div>
+
+  <script>
+    // Temporary storage while verifying
+    let pendingUser = null;
+    let generatedCode = null;
+
+    function startSignup() {
+      // Get values
+      const fullname = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const username = document.getElementById('username').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+
+      const errorEl = document.getElementById('signupError');
+      errorEl.textContent = '';
+
+      // Validation
+      if (!fullname || !email || !username || !password) {
+        errorEl.textContent = 'Please fill in all fields';
+        return;
+      }
+
+      if (password.length < 6) {
+        errorEl.textContent = 'Password must be at least 6 characters';
+        return;
+      }
+
+      // Check if email or username already exists
+      const users = JSON.parse(localStorage.getItem('portfolioUsers') || '[]');
+
+      if (users.some(u => u.email === email)) {
+        errorEl.textContent = 'This email is already registered';
+        return;
+      }
+
+      if (users.some(u => u.username === username)) {
+        errorEl.textContent = 'This username is already taken';
+        return;
+      }
+
+      // Generate 6-digit code
+      generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // Save temporarily
+      pendingUser = {
+        fullname: fullname,
+        email: email,
+        username: username,
+        password: password,
+        verified: false
+      };
+
+      // Show the code (DEMO mode)
+      alert('DEMO MODE\n\nYour verification code is:\n\n' + generatedCode + '\n\n(Enter this code on the next screen)');
+      console.log('Verification Code:', generatedCode);
+
+      // Switch to verification screen
+      document.getElementById('signupSection').style.display = 'none';
+      document.getElementById('verifySection').style.display = 'block';
+    }
+
+    function verifyAccount() {
+      const enteredCode = document.getElementById('verifyCode').value.trim();
+      const errorEl = document.getElementById('verifyError');
+      const successEl = document.getElementById('verifySuccess');
+
+      errorEl.textContent = '';
+      successEl.textContent = '';
+
+      if (!enteredCode) {
+        errorEl.textContent = 'Please enter the verification code';
+        return;
+      }
+
+      if (enteredCode !== generatedCode) {
+        errorEl.textContent = 'Incorrect verification code';
+        return;
+      }
+
+      // Code is correct → save the user permanently
+      const users = JSON.parse(localStorage.getItem('portfolioUsers') || '[]');
+      pendingUser.verified = true;
+      users.push(pendingUser);
+      localStorage.setItem('portfolioUsers', JSON.stringify(users));
+
+      successEl.textContent = 'Account created successfully! Redirecting...';
+
+      // Redirect to login after 1.5 seconds
+      setTimeout(function() {
+        window.location.href = 'login.html';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

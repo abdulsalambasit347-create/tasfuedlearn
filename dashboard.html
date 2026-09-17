@@ -1,0 +1,4737 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TASFUED Learn Portal</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f7f5;
+            color: #1e293b;
+        }
+
+        button,
+        a,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .portal-sidebar {
+            width: 270px;
+            height: 100vh;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: .3s ease;
+        }
+
+
+        .portal-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 25px 20px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .portal-brand h2 {
+            color: #087f23;
+            font-size: 20px;
+        }
+
+        .portal-brand span {
+            font-size: 10px;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        .portal-navigation {
+            padding: 20px 14px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .portal-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 15px;
+            margin-bottom: 6px;
+            color: #475569;
+            border-radius: 10px;
+            transition: .2s ease;
+        }
+
+        .portal-link:hover {
+            background: #ecfdf3;
+            color: #087f23;
+        }
+
+        .portal-link.active {
+            background: #087f23;
+            color: white;
+        }
+
+        .nav-icon {
+            width: 22px;
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           SIDEBAR BOTTOM
+        ===================================================== */
+
+        .sidebar-bottom {
+            padding: 15px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .portal-help {
+            width: 100%;
+            border: none;
+            background: #f0fdf4;
+            padding: 14px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+            margin-bottom: 10px;
+            color: #166534;
+        }
+
+        .help-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #087f23;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .portal-help small {
+            display: block;
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+        .sidebar-logout {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #fff1f2;
+            color: #dc2626;
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .portal-main {
+            margin-left: 270px;
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .portal-header {
+            height: 78px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .header-title span {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .header-title h1 {
+            font-size: 23px;
+            margin-top: 3px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-button {
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: #f1f5f9;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: red;
+            border-radius: 50%;
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-avatar {
+            width: 43px;
+            height: 43px;
+            border-radius: 50%;
+            background: #087f23;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .header-user-text strong,
+        .header-user-text small {
+            display: block;
+        }
+
+        .header-user-text small {
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+        .mobile-menu {
+            display: none;
+            border: none;
+            background: #f1f5f9;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .portal-content {
+            padding: 30px;
+            max-width: 1500px;
+            margin: auto;
+        }
+
+
+        /* =====================================================
+           WELCOME
+        ===================================================== */
+
+        .welcome-card {
+            background: linear-gradient(135deg, #087f23, #16a34a);
+            border-radius: 20px;
+            color: white;
+            padding: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .welcome-label {
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            opacity: .8;
+        }
+
+        .welcome-content h2 {
+            font-size: 32px;
+            margin: 12px 0;
+        }
+
+        .welcome-content p {
+            max-width: 650px;
+            line-height: 1.7;
+            opacity: .9;
+        }
+
+        .primary-action {
+            display: inline-block;
+            margin-top: 20px;
+            background: white;
+            color: #087f23;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-weight: bold;
+            border: none;
+        }
+
+        .welcome-decoration {
+            position: relative;
+            width: 180px;
+            height: 180px;
+        }
+
+        .welcome-decoration img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            border: 5px solid rgba(255,255,255,.4);
+        }
+
+
+        /* =====================================================
+           STATISTICS
+        ===================================================== */
+
+        .statistics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.04);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .green {
+            background: #dcfce7;
+        }
+
+        .blue {
+            background: #dbeafe;
+        }
+
+        .orange {
+            background: #ffedd5;
+        }
+
+        .purple {
+            background: #f3e8ff;
+        }
+
+        .stat-card span,
+        .stat-card strong {
+            display: block;
+        }
+
+        .stat-card span {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .stat-card strong {
+            font-size: 22px;
+            margin-top: 4px;
+        }
+
+
+        /* =====================================================
+           DASHBOARD GRID
+        ===================================================== */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 22px;
+        }
+
+        .dashboard-left,
+        .dashboard-right {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.04);
+        }
+
+        .card-heading {
+            margin-bottom: 22px;
+        }
+
+        .section-label {
+            color: #087f23;
+            font-size: 11px;
+            letter-spacing: 1.4px;
+            font-weight: bold;
+        }
+
+        .card-heading h3,
+        .dashboard-card h3 {
+            margin-top: 5px;
+            font-size: 21px;
+        }
+        
+
+        /* =====================================================
+   LEARNING RESOURCES
+===================================================== */
+
+.resources-section {
+    width: 100%;
+    padding: 30px 0;
+}
+
+.resources-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.resources-heading h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #087f23;
+}
+
+.resources-heading p {
+    margin-top: 7px;
+    color: #777;
+}
+
+.resource-search input {
+    width: 280px;
+    padding: 13px 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+}
+
+.resource-search input:focus {
+    border-color: #087f23;
+}
+
+
+/* GRID */
+
+.resources-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+/* CARD */
+
+.resource-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px;
+    display: flex;
+    gap: 18px;
+    border: 1px solid #e9e9e9;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.resource-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+
+/* ICON */
+
+.resource-icon {
+    min-width: 58px;
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 27px;
+}
+
+.html-icon {
+    background: #fff0ea;
+    color: #e44d26;
+}
+
+.css-icon {
+    background: #edf5ff;
+    color: #1572b6;
+}
+
+.javascript-icon {
+    background: #fff9d9;
+    color: #d6a600;
+}
+
+.python-icon {
+    background: #eef5ff;
+    color: #3776ab;
+}
+
+.java-icon {
+    background: #fff0eb;
+    color: #e76f00;
+}
+
+.cpp-icon {
+    background: #f0f0ff;
+    color: #00599c;
+}
+
+.mysql-icon {
+    background: #fff8e5;
+    color: #00758f;
+}
+
+.cbt-icon {
+    background: #eaf8ee;
+    color: #087f23;
+}
+
+
+/* CONTENT */
+
+.resource-content {
+    flex: 1;
+}
+
+.resource-content h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.resource-content p {
+    color: #777;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+
+/* META */
+
+.resource-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+.resource-meta span {
+    font-size: 12px;
+    color: #666;
+    background: #f6f6f6;
+    padding: 7px 10px;
+    border-radius: 7px;
+}
+
+
+/* BUTTONS */
+
+.resource-buttons {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+}
+
+.open-resource-btn,
+.download-resource-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 11px 14px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    transition: 0.2s;
+}
+
+.open-resource-btn {
+    background: #087f23;
+    color: white;
+}
+
+.open-resource-btn:hover {
+    background: #05651b;
+}
+
+.download-resource-btn {
+    background: #eef7f0;
+    color: #087f23;
+}
+
+.download-resource-btn:hover {
+    background: #dcefe0;
+}
+
+.ai-help-button {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 9998;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 20px;
+    background: #1769aa;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+}
+
+.ai-help-button:hover {
+    background: #0d4f82;
+}
+
+.ai-chat-box {
+    display: none;
+    position: fixed;
+    right: 25px;
+    bottom: 85px;
+    z-index: 9999;
+    width: min(390px, calc(100% - 30px));
+    height: 560px;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ai-chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: #1769aa;
+    color: white;
+}
+
+.ai-chat-header strong,
+.ai-chat-header small {
+    display: block;
+}
+
+.ai-chat-header small {
+    margin-top: 4px;
+    opacity: 0.85;
+}
+
+.close-ai-chat {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.ai-messages {
+    height: 330px;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f5f7fa;
+}
+
+.ai-message {
+    max-width: 88%;
+    margin-bottom: 12px;
+    padding: 10px 13px;
+    border-radius: 10px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+}
+
+.bot-message {
+    background: #e5eef8;
+    color: #222;
+}
+
+.user-message {
+    margin-left: auto;
+    background: #1769aa;
+    color: white;
+}
+
+.ai-category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.ai-category-buttons button {
+    border: 1px solid #1769aa;
+    border-radius: 15px;
+    padding: 6px 10px;
+    background: white;
+    color: #1769aa;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.ai-category-buttons button:hover {
+    background: #1769aa;
+    color: white;
+}
+
+.ai-input-area {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.ai-input-area input {
+    min-width: 0;
+    flex: 1;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+.ai-input-area button {
+    width: 45px;
+    border: none;
+    border-radius: 6px;
+    background: #1769aa;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    .ai-chat-box {
+        right: 15px;
+        bottom: 80px;
+        height: 520px;
+    }
+
+    .ai-help-button {
+        right: 15px;
+        bottom: 15px;
+    }
+}
+
+
+/* =====================================================
+   PDF MODAL
+===================================================== */
+
+.pdf-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.pdf-container {
+    width: min(1100px, 100%);
+    height: 90vh;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.pdf-header {
+    height: 60px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+.pdf-header h3 {
+    margin: 0;
+    color: #087f23;
+}
+
+.pdf-header button {
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#pdfViewer {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* =====================================================
+   CBT MODAL
+===================================================== */
+
+.cbt-modal {
+    position: fixed;
+    inset: 0;
+    background: #f3f6f8;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.cbt-container {
+    width: min(900px, 100%);
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+}
+
+
+/* HEADER */
+
+.cbt-header {
+    background: #087f23;
+    color: white;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.cbt-header h2 {
+    margin: 0 0 5px;
+}
+
+.cbt-header p {
+    margin: 0;
+    opacity: 0.85;
+}
+
+
+/* TIMER */
+
+.cbt-timer {
+    background: white;
+    color: #087f23;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    min-width: 100px;
+    text-align: center;
+}
+
+.timer-warning {
+    background: #fff0f0;
+    color: #d40000;
+    animation: timerPulse 1s infinite;
+}
+
+@keyframes timerPulse {
+
+    50% {
+        transform: scale(1.05);
+    }
+
+}
+
+
+/* PROGRESS */
+
+.cbt-progress-area {
+    padding: 20px 28px 5px;
+}
+
+.cbt-progress-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 9px;
+    font-size: 14px;
+}
+
+.cbt-progress {
+    height: 8px;
+    background: #e8e8e8;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#cbtProgressBar {
+    width: 2.5%;
+    height: 100%;
+    background: #087f23;
+    transition: 0.3s;
+}
+
+
+/* QUESTION */
+
+.question-area {
+    padding: 35px 28px;
+}
+
+.question-number {
+    color: #087f23;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.question-area h3 {
+    font-size: 22px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+
+/* ANSWERS */
+
+.answer-options {
+    display: grid;
+    gap: 12px;
+}
+
+.answer-option {
+    width: 100%;
+    text-align: left;
+    padding: 15px;
+    border: 2px solid #e5e5e5;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    transition: 0.2s;
+    font-size: 15px;
+}
+
+.answer-option:hover {
+    border-color: #087f23;
+    background: #f5fbf6;
+}
+
+.answer-option.selected {
+    border-color: #087f23;
+    background: #eaf8ee;
+}
+
+.option-letter {
+    min-width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.selected .option-letter {
+    background: #087f23;
+    color: white;
+}
+
+
+/* NAVIGATION */
+
+.cbt-navigation {
+    padding: 20px 28px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.cbt-navigation button {
+    padding: 12px 17px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#previousBtn {
+    background: #eee;
+}
+
+#nextBtn {
+    background: #087f23;
+    color: white;
+}
+
+#submitBtn {
+    background: #222;
+    color: white;
+}
+
+.cbt-navigation button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+.result-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 11000;
+    padding: 20px;
+}
+
+.result-container {
+    width: min(450px, 100%);
+    background: white;
+    border-radius: 18px;
+    padding: 35px;
+    text-align: center;
+}
+
+.result-icon {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: #eaf8ee;
+    color: #087f23;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+}
+
+.result-container h2 {
+    margin-top: 20px;
+}
+
+.score-box {
+    margin: 25px 0;
+    padding: 20px;
+    border-radius: 12px;
+    background: #f5f8f6;
+}
+
+.score-box span {
+    display: block;
+    color: #777;
+}
+
+.score-box strong {
+    display: block;
+    color: #087f23;
+    font-size: 40px;
+    margin: 8px 0;
+}
+
+.score-box small {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.result-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.result-buttons button {
+    flex: 1;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #087f23;
+    color: white;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .resources-heading {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .resource-search input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resource-card {
+        padding: 18px;
+    }
+
+    .cbt-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cbt-timer {
+        width: auto;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .resource-card {
+        flex-direction: column;
+    }
+
+    .resource-icon {
+        width: 52px;
+        min-width: 52px;
+        height: 52px;
+    }
+
+    .resource-buttons {
+        flex-direction: column;
+    }
+
+    .open-resource-btn,
+    .download-resource-btn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .cbt-modal {
+        padding: 0;
+    }
+
+    .cbt-container {
+        min-height: 100vh;
+        border-radius: 0;
+    }
+
+    .question-area {
+        padding: 25px 18px;
+    }
+
+    .cbt-progress-area {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .cbt-navigation {
+        padding: 15px;
+    }
+
+    .cbt-navigation button {
+        flex: 1;
+    }
+
+    #submitBtn {
+        flex-basis: 100%;
+    }
+
+    .result-buttons {
+        flex-direction: column;
+    }
+
+}
+
+        /* =====================================================
+           PROFILE
+        ===================================================== */
+
+        .profile-layout {
+            display: flex;
+            gap: 25px;
+        }
+
+        .large-avatar {
+            min-width: 90px;
+            height: 90px;
+            background: #087f23;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .profile-details h2 {
+            font-size: 22px;
+        }
+
+        .profile-course {
+            color: #087f23;
+            margin: 6px 0 20px;
+        }
+
+        .profile-information {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .profile-information span,
+        .profile-information strong {
+            display: block;
+        }
+
+        .profile-information span {
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .profile-information strong {
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           EDUCATION / EXPERIENCE
+        ===================================================== */
+
+        .education-item {
+            display: flex;
+            gap: 15px;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .education-marker {
+            min-width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: #ecfdf3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .education-date {
+            font-size: 11px;
+            color: #087f23;
+            font-weight: bold;
+        }
+
+        .education-content h4 {
+            margin: 6px 0;
+        }
+
+        .education-content p {
+            color: #087f23;
+            margin-bottom: 7px;
+        }
+
+        .education-content small {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .experience-text p {
+            line-height: 1.7;
+            color: #64748b;
+        }
+
+        .experience-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .experience-list span {
+            background: #f0fdf4;
+            padding: 10px;
+            border-radius: 8px;
+            color: #166534;
+        }
+
+        
+        .cbt-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 30px 15px;
+    overflow-y: auto;
+}
+
+.cbt-container {
+    width: min(700px, 100%);
+    margin: auto;
+    padding: 25px;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #222;
+}
+
+.cbt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+#timer {
+    padding: 10px 15px;
+    border-radius: 6px;
+    background: #dc3545;
+    color: white;
+    font-weight: bold;
+}
+
+#questionNumber {
+    margin-bottom: 10px;
+    color: #555;
+    font-weight: bold;
+}
+
+#questionText {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.answer-option {
+    display: block;
+    margin: 12px 0;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.answer-option:hover {
+    background: #f0f6ff;
+}
+
+.answer-option input {
+    margin-right: 10px;
+}
+
+.cbt-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.cbt-controls button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #1769aa;
+    color: white;
+}
+
+.cbt-controls button:hover {
+    background: #0d4f82;
+}
+
+#cbtResult {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+        /* =====================================================
+           QUICK ACTION
+        ===================================================== */
+
+        .quiz-action {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f0fdf4;
+            padding: 15px;
+            border-radius: 12px;
+            color: #166534;
+        }
+
+        .quiz-icon {
+            width: 40px;
+            height: 40px;
+            background: #087f23;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quiz-action strong,
+        .quiz-action span {
+            display: block;
+        }
+
+        .quiz-action span {
+            font-size: 12px;
+            margin-top: 4px;
+            color: #64748b;
+        }
+
+        .quiz-action b {
+            margin-left: auto;
+        }
+
+        .secondary-action {
+            display: block;
+            margin-top: 12px;
+            border: 1px solid #087f23;
+            color: #087f23;
+            text-align: center;
+            padding: 12px;
+            border-radius: 9px;
+        }
+
+
+        /* =====================================================
+           RESOURCES
+        ===================================================== */
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .resource-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 13px;
+            padding: 18px;
+            transition: .2s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,.07);
+        }
+
+        .resource-icon {
+            width: 45px;
+            height: 45px;
+            background: #ecfdf3;
+            color: #087f23;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 19px;
+        }
+
+        .resource-card h4 {
+            margin-bottom: 7px;
+        }
+
+        .resource-card p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 13px;
+        }
+
+        .resource-button {
+            width: 100%;
+            border: none;
+            background: #087f23;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+/* =====================================================
+   LEARNING RESOURCES
+===================================================== */
+
+.resource-intro {
+    color: #64748b;
+    margin-top: 8px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+
+.resources-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+
+.resource-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 20px;
+    transition: .25s ease;
+    background: #ffffff;
+}
+
+
+.resource-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .08);
+
+    border-color: #087f23;
+}
+
+
+.resource-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ecfdf3;
+    color: #087f23;
+
+    border-radius: 12px;
+
+    font-size: 23px;
+
+    margin-bottom: 15px;
+}
+
+
+.resource-card h4 {
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+
+
+.resource-card p {
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 62px;
+}
+
+
+.resource-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+
+.resource-button {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    background: #087f23;
+    color: white;
+
+    padding: 11px;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    transition: .2s;
+}
+
+
+.resource-button:hover {
+    background: #066b1d;
+}
+
+
+.resource-download {
+    width: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #087f23;
+    color: #087f23;
+
+    border-radius: 8px;
+
+    transition: .2s;
+}
+
+
+.resource-download:hover {
+    background: #ecfdf3;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .resource-card {
+        padding: 16px;
+    }
+
+    .resource-card p {
+        min-height: auto;
+    }
+
+}
+
+
+        /* =====================================================
+           SECURITY
+        ===================================================== */
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 17px 0;
+            border-bottom: 1px solid #eeeeee;
+            gap: 20px;
+        }
+
+        .security-item:last-child {
+            border-bottom: none;
+        }
+
+        .security-item strong,
+        .security-item span {
+            display: block;
+        }
+
+        .security-item span {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .security-button {
+            border: 1px solid #087f23;
+            background: white;
+            color: #087f23;
+            padding: 9px 14px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .toggle {
+            width: 48px;
+            height: 25px;
+            border-radius: 20px;
+            background: #cbd5e1;
+            border: none;
+            position: relative;
+        }
+
+        .toggle::after {
+            content: "";
+            width: 19px;
+            height: 19px;
+            background: white;
+            position: absolute;
+            top: 3px;
+            left: 4px;
+            border-radius: 50%;
+            transition: .2s;
+        }
+
+        .toggle.enabled {
+            background: #087f23;
+        }
+
+        .toggle.enabled::after {
+            left: 25px;
+        }
+
+
+        /* =====================================================
+           SUPPORT
+        ===================================================== */
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .support-button {
+            border: 1px solid #e5e7eb;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: left;
+            transition: .2s;
+        }
+
+        .support-button:hover {
+            border-color: #087f23;
+            background: #f0fdf4;
+        }
+
+        .support-button i {
+            color: #087f23;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .support-button strong,
+        .support-button span {
+            display: block;
+        }
+
+        .support-button span {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+
+        /* =====================================================
+           MODALS
+        ===================================================== */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 3000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 18px;
+            padding: 28px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 18px;
+            top: 15px;
+            width: 35px;
+            height: 35px;
+            border: none;
+            background: #f1f5f9;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+
+        .modal h2 {
+            margin-bottom: 10px;
+        }
+
+        .modal p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .modal-form {
+            margin-top: 20px;
+        }
+
+        .modal-form label {
+            display: block;
+            margin: 13px 0 6px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .modal-form input,
+        .modal-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .modal-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal-submit {
+            width: 100%;
+            margin-top: 18px;
+            border: none;
+            background: #087f23;
+            color: white;
+            padding: 13px;
+            border-radius: 9px;
+        }
+
+
+        /* =====================================================
+           NOTIFICATION
+        ===================================================== */
+
+        .notification-panel {
+            position: fixed;
+            top: 88px;
+            right: 30px;
+            width: 330px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.15);
+            padding: 20px;
+            z-index: 2000;
+            display: none;
+        }
+
+        .notification-panel.show {
+            display: block;
+        }
+
+        .notification-panel h3 {
+            margin-bottom: 15px;
+        }
+
+        .notification-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item strong,
+        .notification-item span {
+            display: block;
+        }
+
+        .notification-item span {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search-box {
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 14px;
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            background: white;
+            padding: 13px 15px 13px 42px;
+            border-radius: 10px;
+            outline: none;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .portal-footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 25px 30px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .portal-footer strong,
+        .portal-footer span {
+            display: block;
+        }
+
+        .portal-footer span {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .portal-footer p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        body.dark-mode {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .portal-sidebar,
+        body.dark-mode .portal-header,
+        body.dark-mode .dashboard-card,
+        body.dark-mode .stat-card,
+        body.dark-mode .portal-footer,
+        body.dark-mode .modal,
+        body.dark-mode .notification-panel,
+        body.dark-mode .resource-card,
+        body.dark-mode .support-button {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-color: #334155;
+        }
+
+        body.dark-mode .portal-link {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .portal-link:hover {
+            background: #334155;
+        }
+
+        body.dark-mode .profile-information span,
+        body.dark-mode .education-content small,
+        body.dark-mode .experience-text p,
+        body.dark-mode .resource-card p,
+        body.dark-mode .support-button span,
+        body.dark-mode .security-item span,
+        body.dark-mode .portal-footer span,
+        body.dark-mode .portal-footer p {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .search-box input,
+        body.dark-mode .notification-button,
+        body.dark-mode .security-button,
+        body.dark-mode .modal-close {
+            background: #334155;
+            color: white;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .statistics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resources-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .portal-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .portal-sidebar.sidebar-open {
+                transform: translateX(0);
+                box-shadow: 10px 0 30px rgba(0,0,0,.15);
+            }
+
+            .portal-main {
+                margin-left: 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .portal-header {
+                padding: 0 15px;
+                gap: 10px;
+            }
+
+            .header-title {
+                flex: 1;
+                margin-left: 10px;
+            }
+
+            .header-user-text {
+                display: none;
+            }
+
+            .portal-content {
+                padding: 18px;
+            }
+
+            .welcome-card {
+                padding: 25px;
+            }
+
+            .welcome-content h2 {
+                font-size: 25px;
+            }
+
+            .welcome-decoration {
+                display: none;
+            }
+
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .notification-panel {
+                right: 15px;
+                left: 15px;
+                width: auto;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .statistics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-layout {
+                flex-direction: column;
+            }
+
+            .large-avatar {
+                width: 80px;
+                min-width: 80px;
+            }
+
+            .profile-information {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-list {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-card {
+                padding: 18px;
+            }
+
+            .welcome-card {
+                padding: 22px;
+            }
+
+            .welcome-content p {
+                font-size: 13px;
+            }
+
+            .portal-footer {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .security-item {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .header-title span {
+                display: none;
+            }
+
+            .header-title h1 {
+                font-size: 18px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="portal-sidebar" id="portalSidebar">
+
+    <div class="portal-brand">
+
+        <div class="brand-logo">
+            <img src="tasued.jpg" alt="TASFUED">
+        </div>
+
+        <div>
+            <h2>TASFUED</h2>
+            <span>LEARN PORTAL</span>
+        </div>
+
+    </div>
+
+
+    <nav class="portal-navigation">
+
+        <a href="#" class="portal-link active">
+            <span class="nav-icon">⌂</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="programming.html" class="portal-link">
+            <span class="nav-icon">▣</span>
+            <span>My Courses</span>
+        </a>
+
+        <a href="quiz.html" class="portal-link">
+            <span class="nav-icon">✓</span>
+            <span>Take Quiz</span>
+        </a>
+
+        <a href="#resources" class="portal-link">
+            <span class="nav-icon">📖</span>
+            <span>Learning Resources</span>
+        </a>
+
+        <a href="#education" class="portal-link">
+            <span class="nav-icon">🎓</span>
+            <span>Education</span>
+        </a>
+
+        <a href="#experience" class="portal-link">
+            <span class="nav-icon">💼</span>
+            <span>SIWES</span>
+        </a>
+
+        <a href="#profile" class="portal-link">
+            <span class="nav-icon">◉</span>
+            <span>My Profile</span>
+        </a>
+
+        <a href="#security" class="portal-link">
+            <span class="nav-icon">🔐</span>
+            <span>Account & Security</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button class="portal-help" onclick="openSupport()">
+
+            <div class="help-icon">
+                ?
+            </div>
+
+            <div>
+                <strong>Need Help?</strong>
+                <small>Contact support</small>
+            </div>
+
+        </button>
+
+
+        <button class="sidebar-logout" onclick="logout()">
+            ⇥ &nbsp; Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="portal-main">
+
+
+    <!-- HEADER -->
+
+    <header class="portal-header">
+
+        <button class="mobile-menu" onclick="toggleSidebar()">
+            ☰
+        </button>
+
+
+        <div class="header-title">
+
+            <span>Student Portal</span>
+
+            <h1>Dashboard</h1>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <button
+                class="notification-button"
+                onclick="toggleNotifications()">
+
+                🔔
+
+                <span class="notification-dot"></span>
+
+            </button>
+
+
+            <button
+                class="notification-button"
+                onclick="toggleDarkMode()">
+
+                🌙
+
+            </button>
+
+
+            <div class="header-user">
+
+                <div
+                    class="header-avatar"
+                    id="headerAvatar">
+                    U
+                </div>
+
+                <div class="header-user-text">
+
+                    <strong id="headerName">
+                        Student
+                    </strong>
+
+                    <small id="headerEmail">
+                        student@email.com
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- NOTIFICATION PANEL -->
+
+    <div
+        class="notification-panel"
+        id="notificationPanel">
+
+        <h3>Notifications</h3>
+
+        <div class="notification-item">
+
+            <strong>New Learning Material</strong>
+
+            <span>
+                JavaScript learning material has been added.
+            </span>
+
+        </div>
+
+        <div class="notification-item">
+
+            <strong>Quiz Available</strong>
+
+            <span>
+                A new programming quiz is available.
+            </span>
+
+        </div>
+
+        <div class="notification-item">
+
+            <strong>Keep Learning</strong>
+
+            <span>
+                Continue your courses to improve your progress.
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- CONTENT -->
+
+    <section class="portal-content">
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="portalSearch"
+                placeholder="Search courses, resources and portal sections..."
+                oninput="searchPortal()">
+
+        </div>
+
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome-card">
+
+            <div class="welcome-content">
+
+                <span class="welcome-label">
+                    STUDENT DASHBOARD
+                </span>
+
+                <h2 id="displayName">
+                    Welcome, Student!
+                </h2>
+
+                <p>
+                    Continue learning, improve your skills and
+                    track your academic progress from your dashboard.
+                </p>
+
+                <a
+                    href="programming.html"
+                    class="primary-action">
+                    Explore Courses →
+                </a>
+
+            </div>
+
+
+            <div class="welcome-decoration">
+
+                <img
+                    src="tasued.jpg"
+                    alt="TASFUED Logo">
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STATISTICS -->
+
+        <div class="statistics-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    📚
+                </div>
+
+                <div>
+                    <span>Courses</span>
+                    <strong>08</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    ✓
+                </div>
+
+                <div>
+                    <span>Quizzes</span>
+                    <strong>01</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    ◈
+                </div>
+
+                <div>
+                    <span>Skills</span>
+                    <strong>08</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    🎓
+                </div>
+
+                <div>
+                    <span>Program</span>
+                    <strong>B.Sc</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MAIN GRID -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- LEFT -->
+
+            <div class="dashboard-left">
+
+
+                <!-- PROFILE -->
+
+                <section
+                    class="dashboard-card profile-card"
+                    id="profile">
+
+                    <div class="card-heading">
+
+                        <span class="section-label">
+                            PROFILE
+                        </span>
+
+                        <h3>Student Information</h3>
+
+                    </div>
+
+
+                    <div class="profile-layout">
+
+                        <div
+                            class="large-avatar"
+                            id="largeAvatar">
+                            AB
+                        </div>
+
+
+                        <div class="profile-details">
+
+                            <h2 id="profileName">
+                                Student
+                            </h2>
+
+                            <p class="profile-course">
+                                Computer Science Student
+                            </p>
+
+
+                            <div class="profile-information">
+
+                                <div>
+                                    <span>Matric Number</span>
+                                    <strong>20240214076</strong>
+                                </div>
+
+                                <div>
+                                    <span>University</span>
+                                    <strong>TASFUED</strong>
+                                </div>
+
+                                <div>
+                                    <span>Location</span>
+                                    <strong>Ogun, Nigeria</strong>
+                                </div>
+
+                                <div>
+                                    <span>Email</span>
+                                    <strong id="profileEmail">
+                                        student@email.com
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- EDUCATION -->
+
+                <section
+                    class="dashboard-card"
+                    id="education">
+
+                    <div class="card-heading">
+
+                        <span class="section-label">
+                            ACADEMIC
+                        </span>
+
+                        <h3>Education</h3>
+
+                    </div>
+
+
+                    <div class="education-item">
+
+                        <div class="education-marker">
+                            🎓
+                        </div>
+
+                        <div class="education-content">
+
+                            <span class="education-date">
+                                2024 — PRESENT
+                            </span>
+
+                            <h4>
+                                Tai Solarin Federal University
+                                of Education
+                            </h4>
+
+                            <p>
+                                B.Sc Computer Science
+                            </p>
+
+                            <small>
+                                Relevant Courses: Web Development,
+                                Data Structures, Database Systems
+                                and Software Engineering.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="education-item">
+
+                        <div class="education-marker">
+                            💼
+                        </div>
+
+                        <div class="education-content">
+
+                            <span class="education-date">
+                                2025 — 2026
+                            </span>
+
+                            <h4>
+                                Gateway Polytechnic, Saapade
+                            </h4>
+
+                            <p>
+                                SIWES — Software Development
+                            </p>
+
+                            <small>
+                                Industrial training and practical
+                                software development experience.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- SIWES -->
+
+                <section
+                    class="dashboard-card"
+                    id="experience">
+
+                    <div class="card-heading">
+
+                        <span class="section-label">
+                            EXPERIENCE
+                        </span>
+
+                        <h3>SIWES Experience</h3>
+
+                    </div>
+
+
+                    <div class="experience-text">
+
+                        <p>
+                            During my Students Industrial Work
+                            Experience Scheme, I have gained
+                            practical experience in:
+                        </p>
+
+
+                        <div class="experience-list">
+
+                            <span>✓ Web Development</span>
+                            <span>✓ HTML & CSS</span>
+                            <span>✓ JavaScript</span>
+                            <span>✓ PHP Development</span>
+                            <span>✓ MySQL Database</span>
+                            <span>✓ Python Programming</span>
+                            <span>✓ Debugging</span>
+                            <span>✓ Problem Solving</span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- SECURITY -->
+
+                <section
+                    class="dashboard-card"
+                    id="security">
+
+                    <div class="card-heading">
+
+                        <span class="section-label">
+                            SECURITY
+                        </span>
+
+                        <h3>Account & Security</h3>
+
+                    </div>
+
+
+                    <div class="security-item">
+
+                        <div>
+
+                            <strong>Password</strong>
+
+                            <span>
+                                Change your account password
+                            </span>
+
+                        </div>
+
+                        <button
+                            class="security-button"
+                            onclick="openPasswordModal()">
+
+                            Change Password
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="security-item">
+
+                        <div>
+
+                            <strong>Email Address</strong>
+
+                            <span id="securityEmail">
+                                student@email.com
+                            </span>
+
+                        </div>
+
+                        <button
+                            class="security-button"
+                            onclick="openEmailModal()">
+
+                            Change Email
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="security-item">
+
+                        <div>
+
+                            <strong>Two-Factor Authentication</strong>
+
+                            <span>
+                                Add an extra layer of account security
+                            </span>
+
+                        </div>
+
+                        <button
+                            class="toggle"
+                            id="twoFactorToggle"
+                            onclick="toggleTwoFactor()">
+                        </button>
+
+                    </div>
+
+
+                    <div class="security-item">
+
+                        <div>
+
+                            <strong>Login Sessions</strong>
+
+                            <span>
+                                Manage your current login session
+                            </span>
+
+                        </div>
+
+                        <button
+                            class="security-button"
+                            onclick="logout()">
+
+                            Logout
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+
+            <!-- RIGHT -->
+
+            <aside class="dashboard-right">
+
+
+                <!-- QUICK ACTION -->
+
+                <section class="dashboard-card">
+
+                    <div class="card-heading">
+
+                        <span class="section-label">
+                            QUICK ACTION
+                        </span>
+
+                        <h3>Get Started</h3>
+
+                    </div>
+
+
+                    <a
+                        href="quiz.html"
+                        class="quiz-action">
+
+                        <div class="quiz-icon">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong>Take a Quiz</strong>
+
+                            <span>
+                                Test your programming knowledge
+                            </span>
+
+                        </div>
+
+                        <b>→</b>
+
+                    </a>
+
+
+                    <a
+                        href="programming.html"
+                        class="secondary-action">
+
+                        Learn Programming →
+
+                    </a>
+
+                </section>
+
+
+
+                <!-- SUPPORT -->
+
+                <section class="dashboard-card">
+
+                    <div class="card-heading">
+
+                        <span class="section-label">
+                            SUPPORT
+                        </span>
+
+                        <h3>Student Support</h3>
+
+                    </div>
+
+
+                    <div class="support-grid">
+
+
+                        <button
+                            class="support-button"
+                            onclick="openEmailSupport()">
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                            <strong>Email Support</strong>
+
+                            <span>
+                                Send us a message
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="support-button"
+                            onclick="openCallSupport()">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <strong>Call Support</strong>
+
+                            <span>
+                                Speak with support
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="support-button"
+                            onclick="openFAQ()">
+
+                            <i class="fa-solid fa-circle-question"></i>
+
+                            <strong>FAQ</strong>
+
+                            <span>
+                                Frequently asked questions
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="support-button"
+                            onclick="openProblemReport()">
+
+                            <i class="fa-solid fa-bug"></i>
+
+                            <strong>Report Problem</strong>
+
+                            <span>
+                                Report a portal issue
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="support-button"
+                            onclick="openCourseHelp()">
+
+                            <i class="fa-solid fa-book"></i>
+
+                            <strong>Course Help</strong>
+
+                            <span>
+                                Get help with courses
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="support-button"
+                            onclick="openAccountHelp()">
+
+                            <i class="fa-solid fa-user-lock"></i>
+
+                            <strong>Account Help</strong>
+
+                            <span>
+                                Login and account assistance
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ABOUT -->
+
+                <section class="dashboard-card">
+
+                    <span class="section-label">
+                        ABOUT ME
+                    </span>
+
+                    <h3>My Goal</h3>
+
+                    <p style="line-height:1.7;color:#64748b;margin-top:10px;">
+
+                        My goal is to become a Full-Stack Web
+                        Developer who creates responsive,
+                        user-friendly and secure web applications.
+
+                    </p>
+
+                </section>
+
+
+
+                <!-- NOTICE -->
+
+                <section class="dashboard-card">
+
+                    <span class="section-label">
+                        PORTAL NOTICE
+                    </span>
+
+                    <h3>Keep Learning</h3>
+
+                    <p style="line-height:1.7;color:#64748b;margin-top:10px;">
+
+                        Explore your courses and complete quizzes
+                        to improve your programming skills.
+
+                    </p>
+
+                </section>
+
+            </aside>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="portal-footer">
+
+        <div>
+
+            <strong>
+                TASFUED LEARN PORTAL
+            </strong>
+
+            <span>
+                Student Learning Management Portal
+            </span>
+
+        </div>
+
+        <p>
+            © 2026 TASFUED Learn Portal
+        </p>
+
+    </footer>
+
+</main>
+
+
+
+<!-- =========================================================
+     SUPPORT MODAL
+========================================================= -->
+
+<div
+    class="modal-overlay"
+    id="supportModal">
+
+    <div class="modal">
+
+        <button
+            class="modal-close"
+            onclick="closeModal('supportModal')">
+            ×
+        </button>
+
+        <h2 id="supportTitle">
+            Student Support
+        </h2>
+
+        <p id="supportDescription">
+            How can we help you?
+        </p>
+
+
+        <div class="modal-form">
+
+            <label>Your Name</label>
+
+            <input
+                type="text"
+                id="supportName"
+                placeholder="Enter your name">
+
+
+            <label>Your Message</label>
+
+            <textarea
+                id="supportMessage"
+                placeholder="Describe your issue..."></textarea>
+
+
+            <button
+                class="modal-submit"
+                onclick="sendSupportMessage()">
+
+                Send Message
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     PASSWORD MODAL
+========================================================= -->
+
+<div
+    class="modal-overlay"
+    id="passwordModal">
+
+    <div class="modal">
+
+        <button
+            class="modal-close"
+            onclick="closeModal('passwordModal')">
+            ×
+        </button>
+
+        <h2>Change Password</h2>
+
+        <p>
+            Enter a new password for your account.
+        </p>
+
+
+        <div class="modal-form">
+
+            <label>Current Password</label>
+
+            <input
+                type="password"
+                id="currentPassword"
+                placeholder="Current password">
+
+
+            <label>New Password</label>
+
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="New password">
+
+
+            <label>Confirm Password</label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm password">
+
+
+            <button
+                class="modal-submit"
+                onclick="changePassword()">
+
+                Update Password
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     EMAIL MODAL
+========================================================= -->
+
+<div
+    class="modal-overlay"
+    id="emailModal">
+
+    <div class="modal">
+
+        <button
+            class="modal-close"
+            onclick="closeModal('emailModal')">
+            ×
+        </button>
+
+        <h2>Change Email</h2>
+
+        <p>
+            Enter your new email address.
+        </p>
+
+
+        <div class="modal-form">
+
+            <label>New Email</label>
+
+            <input
+                type="email"
+                id="newEmail"
+                placeholder="new@email.com">
+
+
+            <button
+                class="modal-submit"
+                onclick="changeEmail()">
+
+                Update Email
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     RESOURCE MODAL
+========================================================= -->
+
+<div
+    class="modal-overlay"
+    id="resourceModal">
+
+    <div class="modal">
+
+        <button
+            class="modal-close"
+            onclick="closeModal('resourceModal')">
+            ×
+        </button>
+
+        <h2 id="resourceTitle">
+            Learning Resource
+        </h2>
+
+        <p>
+            This resource is ready to be connected to your
+            lecture notes, PDF, video or learning material.
+        </p>
+
+        <button
+            class="modal-submit"
+            onclick="closeModal('resourceModal')">
+
+            Continue
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   LOGIN / CURRENT USER
+========================================================= */
+
+const currentUser =
+    localStorage.getItem("currentUser");
+
+
+if (!currentUser) {
+
+    window.location.href = "login.html";
+
+}
+
+
+if (currentUser) {
+
+    try {
+
+        const user =
+            JSON.parse(currentUser);
+
+
+        if (user.fullname) {
+
+            const fullName =
+                user.fullname.trim();
+
+
+            const firstName =
+                fullName.split(" ")[0];
+
+
+            document.getElementById(
+                "displayName"
+            ).textContent =
+                "Welcome, " + firstName + "!";
+
+
+            document.getElementById(
+                "headerName"
+            ).textContent =
+                fullName;
+
+
+            document.getElementById(
+                "profileName"
+            ).textContent =
+                fullName;
+
+
+            const names =
+                fullName.split(/\s+/);
+
+
+            let initials =
+                names[0].charAt(0).toUpperCase();
+
+
+            if (names.length > 1) {
+
+                initials +=
+                    names[names.length - 1]
+                    .charAt(0)
+                    .toUpperCase();
+
+            }
+
+
+            document.getElementById(
+                "headerAvatar"
+            ).textContent =
+                initials;
+
+
+            document.getElementById(
+                "largeAvatar"
+            ).textContent =
+                initials;
+
+        }
+
+
+        if (user.email) {
+
+            document.getElementById(
+                "headerEmail"
+            ).textContent =
+                user.email;
+
+
+            document.getElementById(
+                "profileEmail"
+            ).textContent =
+                user.email;
+
+
+            document.getElementById(
+                "securityEmail"
+            ).textContent =
+                user.email;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "User data error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+    localStorage.removeItem(
+        "currentUser"
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById(
+            "portalSidebar"
+        );
+
+    sidebar.classList.toggle(
+        "sidebar-open"
+    );
+
+}
+
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function toggleNotifications() {
+
+    document.getElementById(
+        "notificationPanel"
+    ).classList.toggle("show");
+
+}
+
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+function toggleDarkMode() {
+
+    document.body.classList.toggle(
+        "dark-mode"
+    );
+
+
+    const enabled =
+        document.body.classList.contains(
+            "dark-mode"
+        );
+
+
+    localStorage.setItem(
+        "darkMode",
+        enabled
+    );
+
+}
+
+
+if (
+    localStorage.getItem("darkMode")
+    === "true"
+) {
+
+    document.body.classList.add(
+        "dark-mode"
+    );
+
+}
+
+
+
+/* =========================================================
+   SUPPORT
+========================================================= */
+
+function openSupport() {
+
+    document.getElementById(
+        "supportModal"
+    ).classList.add("show");
+
+}
+
+
+function openEmailSupport() {
+
+    document.getElementById(
+        "supportTitle"
+    ).textContent =
+        "Email Support";
+
+
+    document.getElementById(
+        "supportDescription"
+    ).textContent =
+        "Send your question or issue to portal support.";
+
+
+    openSupport();
+
+}
+
+
+function openCallSupport() {
+
+    window.location.href =
+        "tel:+2349071964874";
+
+}
+
+
+function openFAQ() {
+
+    document.getElementById(
+        "supportTitle"
+    ).textContent =
+        "Frequently Asked Questions";
+
+
+    document.getElementById(
+        "supportDescription"
+    ).textContent =
+        "Common questions about courses, quizzes and accounts.";
+
+
+    document.getElementById(
+        "supportMessage"
+    ).value =
+        "How do I access my courses?\n\nHow do I take a quiz?\n\nHow do I change my account information?";
+
+
+    openSupport();
+
+}
+
+
+function openProblemReport() {
+
+    document.getElementById(
+        "supportTitle"
+    ).textContent =
+        "Report a Problem";
+
+
+    document.getElementById(
+        "supportDescription"
+    ).textContent =
+        "Tell us about a technical problem you encountered.";
+
+
+    openSupport();
+
+}
+
+
+function openCourseHelp() {
+
+    document.getElementById(
+        "supportTitle"
+    ).textContent =
+        "Course Assistance";
+
+
+    document.getElementById(
+        "supportDescription"
+    ).textContent =
+        "Tell us which course you need assistance with.";
+
+
+    openSupport();
+
+}
+
+
+function openAccountHelp() {
+
+    document.getElementById(
+        "supportTitle"
+    ).textContent =
+        "Account Assistance";
+
+
+    document.getElementById(
+        "supportDescription"
+    ).textContent =
+        "Describe your login or account problem.";
+
+
+    openSupport();
+
+}
+
+
+function sendSupportMessage() {
+
+    const name =
+        document.getElementById(
+            "supportName"
+        ).value.trim();
+
+
+    const message =
+        document.getElementById(
+            "supportMessage"
+        ).value.trim();
+
+
+    if (!name || !message) {
+
+        alert(
+            "Please enter your name and message."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Your support request has been submitted successfully."
+    );
+
+
+    closeModal("supportModal");
+
+}
+
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+function openPasswordModal() {
+
+    document.getElementById(
+        "passwordModal"
+    ).classList.add("show");
+
+}
+
+
+function changePassword() {
+
+    const current =
+        document.getElementById(
+            "currentPassword"
+        ).value;
+
+
+    const newPassword =
+        document.getElementById(
+            "newPassword"
+        ).value;
+
+
+    const confirm =
+        document.getElementById(
+            "confirmPassword"
+        ).value;
+
+
+    if (
+        !current ||
+        !newPassword ||
+        !confirm
+    ) {
+
+        alert(
+            "Please complete all password fields."
+        );
+
+        return;
+
+    }
+
+
+    if (newPassword.length < 6) {
+
+        alert(
+            "Password must contain at least 6 characters."
+        );
+
+        return;
+
+    }
+
+
+    if (newPassword !== confirm) {
+
+        alert(
+            "Passwords do not match."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Demo/localStorage password update.
+
+       For a real production portal,
+       password changes should be handled
+       by your backend.
+    */
+
+    localStorage.setItem(
+        "portalPassword",
+        newPassword
+    );
+
+
+    alert(
+        "Password updated successfully."
+    );
+
+
+    closeModal("passwordModal");
+
+}
+
+
+
+/* =========================================================
+   EMAIL
+========================================================= */
+
+function openEmailModal() {
+
+    document.getElementById(
+        "emailModal"
+    ).classList.add("show");
+
+}
+
+
+function changeEmail() {
+
+    const email =
+        document.getElementById(
+            "newEmail"
+        ).value.trim();
+
+
+    if (!email) {
+
+        alert(
+            "Please enter an email address."
+        );
+
+        return;
+
+    }
+
+
+    if (!email.includes("@")) {
+
+        alert(
+            "Please enter a valid email address."
+        );
+
+        return;
+
+    }
+
+
+    const user =
+        JSON.parse(
+            localStorage.getItem(
+                "currentUser"
+            )
+        );
+
+
+    user.email = email;
+
+
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify(user)
+    );
+
+
+    document.getElementById(
+        "headerEmail"
+    ).textContent = email;
+
+
+    document.getElementById(
+        "profileEmail"
+    ).textContent = email;
+
+
+    document.getElementById(
+        "securityEmail"
+    ).textContent = email;
+
+
+    alert(
+        "Email address updated successfully."
+    );
+
+
+    closeModal("emailModal");
+
+}
+
+
+
+/* =========================================================
+   TWO FACTOR AUTHENTICATION
+========================================================= */
+
+function toggleTwoFactor() {
+
+    const toggle =
+        document.getElementById(
+            "twoFactorToggle"
+        );
+
+
+    toggle.classList.toggle(
+        "enabled"
+    );
+
+
+    const enabled =
+        toggle.classList.contains(
+            "enabled"
+        );
+
+
+    localStorage.setItem(
+        "twoFactor",
+        enabled
+    );
+
+
+    alert(
+        enabled
+            ? "Two-factor authentication enabled."
+            : "Two-factor authentication disabled."
+    );
+
+}
+
+
+if (
+    localStorage.getItem("twoFactor")
+    === "true"
+) {
+
+    document.getElementById(
+        "twoFactorToggle"
+    ).classList.add(
+        "enabled"
+    );
+
+}
+
+
+
+/* =========================================================
+   RESOURCES
+========================================================= */
+
+function openResource(name) {
+
+    document.getElementById(
+        "resourceTitle"
+    ).textContent =
+        name;
+
+
+    document.getElementById(
+        "resourceModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+
+/* =========================================================
+   CLOSE MODALS
+========================================================= */
+
+function closeModal(id) {
+
+    document.getElementById(
+        id
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchPortal() {
+
+    const search =
+        document.getElementById(
+            "portalSearch"
+        ).value.toLowerCase();
+
+
+    const cards =
+        document.querySelectorAll(
+            ".resource-card, .support-button, .dashboard-card"
+        );
+
+
+    cards.forEach(card => {
+
+        const text =
+            card.textContent.toLowerCase();
+
+
+        if (
+            search === "" ||
+            text.includes(search)
+        ) {
+
+            card.style.display = "";
+
+        } else {
+
+            if (
+                card.classList.contains(
+                    "dashboard-card"
+                )
+            ) {
+
+                card.style.display = "";
+
+            } else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        }
+
+    });
+
+}
+
+
+
+/* =====================================================
+   CBT VARIABLES
+===================================================== */
+
+let currentQuestion = 0;
+
+let selectedAnswers = new Array(cbtQuestions.length).fill(null);
+
+let cbtTimerInterval = null;
+
+let remainingSeconds = 30 * 60;
+
+
+/* =====================================================
+   START CBT
+===================================================== */
+
+function startCBT() {
+
+    currentQuestion = 0;
+
+    selectedAnswers =
+        new Array(cbtQuestions.length).fill(null);
+
+    remainingSeconds = 30 * 60;
+
+    document.getElementById("cbtModal").style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+
+    showQuestion();
+
+    startCBTTimer();
+
+}
+
+
+/* =====================================================
+   SHOW QUESTION
+===================================================== */
+
+function showQuestion() {
+
+    const question =
+        cbtQuestions[currentQuestion];
+
+    document.getElementById(
+        "currentQuestionNumber"
+    ).textContent = currentQuestion + 1;
+
+
+    document.getElementById(
+        "questionNumber"
+    ).textContent =
+        `Question ${currentQuestion + 1} of ${cbtQuestions.length}`;
+
+
+    document.getElementById(
+        "questionText"
+    ).textContent =
+        question.question;
+
+
+    const optionsContainer =
+        document.getElementById("answerOptions");
+
+    optionsContainer.innerHTML = "";
+
+
+    question.options.forEach((option, index) => {
+
+        const optionButton =
+            document.createElement("button");
+
+        optionButton.className =
+            "answer-option";
+
+
+        if (
+            selectedAnswers[currentQuestion] === index
+        ) {
+
+            optionButton.classList.add(
+                "selected"
+            );
+
+        }
+
+
+        optionButton.innerHTML = `
+
+            <span class="option-letter">
+                ${String.fromCharCode(65 + index)}
+            </span>
+
+            <span class="option-text">
+                ${option}
+            </span>
+
+        `;
+
+
+        optionButton.onclick = function() {
+
+            selectAnswer(index);
+
+        };
+
+
+        optionsContainer.appendChild(
+            optionButton
+        );
+
+    });
+
+
+    updateCBTProgress();
+
+}
+
+
+/* =====================================================
+   SELECT ANSWER
+===================================================== */
+
+function selectAnswer(index) {
+
+    selectedAnswers[currentQuestion] =
+        index;
+
+    showQuestion();
+
+}
+
+
+/* =====================================================
+   NEXT QUESTION
+===================================================== */
+
+function nextQuestion() {
+
+    if (
+        currentQuestion <
+        cbtQuestions.length - 1
+    ) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    } else {
+
+        submitCBT();
+
+    }
+
+}
+
+
+/* =====================================================
+   PREVIOUS QUESTION
+===================================================== */
+
+function previousQuestion() {
+
+    if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        showQuestion();
+
+    }
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+function updateCBTProgress() {
+
+    const answered =
+        selectedAnswers.filter(
+            answer => answer !== null
+        ).length;
+
+
+    document.getElementById(
+        "answeredCount"
+    ).textContent =
+        `${answered} answered`;
+
+
+    const percentage =
+        ((currentQuestion + 1) /
+        cbtQuestions.length) * 100;
+
+
+    document.getElementById(
+        "cbtProgressBar"
+    ).style.width =
+        percentage + "%";
+
+
+    document.getElementById(
+        "previousBtn"
+    ).disabled =
+        currentQuestion === 0;
+
+
+    if (
+        currentQuestion ===
+        cbtQuestions.length - 1
+    ) {
+
+        document.getElementById(
+            "nextBtn"
+        ).innerHTML = `
+            Submit
+            <i class="fa-solid fa-paper-plane"></i>
+        `;
+
+    } else {
+
+        document.getElementById(
+            "nextBtn"
+        ).innerHTML = `
+            Next
+            <i class="fa-solid fa-arrow-right"></i>
+        `;
+
+    }
+
+}
+
+let selectedAISection = "General";
+
+function toggleAIChat() {
+    const chatBox = document.getElementById("aiChatBox");
+
+    chatBox.style.display =
+        chatBox.style.display === "block" ? "none" : "block";
+
+    if (chatBox.style.display === "block") {
+        document.getElementById("aiInput").focus();
+    }
+}
+
+function selectAICategory(category) {
+    selectedAISection = category;
+
+    const categoryMessages = {
+        FAQ: "Ask me a frequently asked question about the platform.",
+        "Course Help": "Tell me the course or topic you need help with.",
+        "Account Help": "Describe your account or login problem.",
+        "Report Problem":
+            "Please describe the problem, including the page where it happened."
+    };
+
+    addAIMessage(categoryMessages[category], "bot");
+    document.getElementById("aiInput").focus();
+}
+
+function addAIMessage(message, sender) {
+    const messages = document.getElementById("aiMessages");
+    const messageElement = document.createElement("div");
+
+    messageElement.className =
+        sender === "user"
+            ? "ai-message user-message"
+            : "ai-message bot-message";
+
+    messageElement.textContent = message;
+    messages.appendChild(messageElement);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+async function sendAIMessage(event) {
+    event.preventDefault();
+
+    const input = document.getElementById("aiInput");
+    const message = input.value.trim();
+
+    if (!message) {
+        return;
+    }
+
+    addAIMessage(message, "user");
+    input.value = "";
+
+    const loadingMessage = document.createElement("div");
+    loadingMessage.className = "ai-message bot-message";
+    loadingMessage.textContent = "Thinking...";
+    loadingMessage.id = "aiLoadingMessage";
+
+    document.getElementById("aiMessages").appendChild(loadingMessage);
+
+    try {
+        const response = await fetch("/api/ai-help", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: message,
+                category: selectedAISection
+            })
+        });
+
+        const data = await response.json();
+
+        document.getElementById("aiLoadingMessage")?.remove();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Unable to contact AI assistant.");
+        }
+
+        addAIMessage(data.reply, "bot");
+    } catch (error) {
+        document.getElementById("aiLoadingMessage")?.remove();
+
+        addAIMessage(
+            "Sorry, I could not process your request right now. Please try again or contact the administrator.",
+            "bot"
+        );
+
+        console.error(error);
+    }
+}
+
+
+/* =====================================================
+   CBT TIMER
+===================================================== */
+
+function startCBTTimer() {
+
+    clearInterval(cbtTimerInterval);
+
+
+    updateCBTTimer();
+
+
+    cbtTimerInterval =
+        setInterval(function() {
+
+            remainingSeconds--;
+
+            updateCBTTimer();
+
+
+            if (remainingSeconds <= 0) {
+
+                clearInterval(
+                    cbtTimerInterval
+                );
+
+                alert(
+                    "Time is up. Your examination will be submitted automatically."
+                );
+
+                submitCBT();
+
+            }
+
+        }, 1000);
+
+}
+
+
+/* =====================================================
+   UPDATE TIMER
+===================================================== */
+
+function updateCBTTimer() {
+
+    const minutes =
+        Math.floor(
+            remainingSeconds / 60
+        );
+
+
+    const seconds =
+        remainingSeconds % 60;
+
+
+    document.getElementById(
+        "cbtTimer"
+    ).textContent =
+
+        String(minutes).padStart(2, "0")
+        + ":" +
+        String(seconds).padStart(2, "0");
+
+
+    const timer =
+        document.querySelector(".cbt-timer");
+
+
+    if (remainingSeconds <= 300) {
+
+        timer.classList.add(
+            "timer-warning"
+        );
+
+    } else {
+
+        timer.classList.remove(
+            "timer-warning"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SUBMIT CBT
+===================================================== */
+
+function submitCBT() {
+
+    clearInterval(
+        cbtTimerInterval
+    );
+
+
+    let score = 0;
+
+
+    cbtQuestions.forEach(
+        (question, index) => {
+
+            if (
+                selectedAnswers[index] ===
+                question.answer
+            ) {
+
+                score++;
+
+            }
+
+        }
+    );
+
+
+    const percentage =
+        Math.round(
+            (score / cbtQuestions.length) * 100
+        );
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+        `${score} / ${cbtQuestions.length}`;
+
+
+    document.getElementById(
+        "percentageScore"
+    ).textContent =
+        `${percentage}%`;
+
+
+    document.getElementById(
+        "resultMessage"
+    ).textContent =
+        `You answered ${selectedAnswers.filter(a => a !== null).length} out of ${cbtQuestions.length} questions. Your examination has been submitted.`;
+
+
+    document.getElementById(
+        "cbtModal"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "resultModal"
+    ).style.display = "flex";
+
+}
+
+
+/* =====================================================
+   CLOSE RESULT
+===================================================== */
+
+function closeResult() {
+
+    document.getElementById(
+        "resultModal"
+    ).style.display = "none";
+
+    document.body.style.overflow = "auto";
+
+}
+
+
+/* =====================================================
+   RESTART CBT
+===================================================== */
+
+function restartCBT() {
+
+    document.getElementById(
+        "resultModal"
+    ).style.display = "none";
+
+
+    startCBT();
+
+}
+
+
+/* =====================================================
+   OPEN PDF
+===================================================== */
+
+function openPDF(pdfFile) {
+
+    const modal =
+        document.getElementById("pdfModal");
+
+    const viewer =
+        document.getElementById("pdfViewer");
+
+
+    viewer.src = pdfFile;
+
+    modal.style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+/* =====================================================
+   CLOSE PDF
+===================================================== */
+
+function closePDF() {
+
+    const modal =
+        document.getElementById("pdfModal");
+
+    const viewer =
+        document.getElementById("pdfViewer");
+
+
+    viewer.src = "";
+
+    modal.style.display = "none";
+
+    document.body.style.overflow = "auto";
+
+}
+
+
+/* =====================================================
+   SEARCH RESOURCES
+===================================================== */
+
+function searchResources() {
+
+    const search =
+        document
+        .getElementById("resourceSearch")
+        .value
+        .toLowerCase();
+
+
+    const cards =
+        document.querySelectorAll(
+            ".resource-card"
+        );
+
+
+    cards.forEach(card => {
+
+        const text =
+            card.textContent.toLowerCase();
+
+
+        if (
+            text.includes(search)
+        ) {
+
+            card.style.display = "";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+/* =========================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+========================================================= */
+
+document.querySelectorAll(
+    ".modal-overlay"
+).forEach(modal => {
+
+    modal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === modal
+            ) {
+
+                modal.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   CLOSE SIDEBAR AFTER NAVIGATION ON MOBILE
+========================================================= */
+
+document.querySelectorAll(
+    ".portal-link"
+).forEach(link => {
+
+    link.addEventListener(
+        "click",
+        function() {
+
+            if (
+                window.innerWidth <= 800
+            ) {
+
+                document
+                    .getElementById(
+                        "portalSidebar"
+                    )
+                    .classList.remove(
+                        "sidebar-open"
+                    );
+
+            }
+
+        }
+    );
+
+});
+
+
+</script>
+<!-- AI HELP BUTTON -->
+<button id="aiHelpButton" class="ai-help-button" onclick="toggleAIChat()">
+    <i class="fa-solid fa-robot"></i>
+    AI Help
+</button>
+
+<!-- AI CHAT BOX -->
+<div id="aiChatBox" class="ai-chat-box">
+    <div class="ai-chat-header">
+        <div>
+            <strong>AI Learning Assistant</strong>
+            <small>FAQ and student support</small>
+        </div>
+
+        <button onclick="toggleAIChat()" class="close-ai-chat">
+            &times;
+        </button>
+    </div>
+
+    <div id="aiMessages" class="ai-messages">
+        <div class="ai-message bot-message">
+            Hello! I can help with FAQs, course questions, account problems,
+            and technical issues. How can I help you?
+        </div>
+    </div>
+
+    <div class="ai-category-buttons">
+        <button onclick="selectAICategory('FAQ')">FAQ</button>
+        <button onclick="selectAICategory('Course Help')">Course Help</button>
+        <button onclick="selectAICategory('Account Help')">Account Help</button>
+        <button onclick="selectAICategory('Report Problem')">Report Problem</button>
+    </div>
+
+    <form class="ai-input-area" onsubmit="sendAIMessage(event)">
+        <input
+            type="text"
+            id="aiInput"
+            placeholder="Type your question..."
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit">
+            <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </form>
+</div>
+
+
+</body>
+
+</html>
